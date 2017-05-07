@@ -1,0 +1,47 @@
+{% extends "OCOnlineCvBundle::layout.html.twig" %}
+
+
+{% block title %}
+  Les CV - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+{{ render(controller("OCRechercheBundle:Recherche:cv")) }}</br></br>
+<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-primary" style="border-color:white">
+				
+				<div class="panel-body">
+  <h2>Liste des CV</h2>
+{% if listTheResumes|length != 0 %}
+  <ul>
+    {% for theResume in listTheResumes %}
+      <li>
+        <a href="{{ path('oc_online_cv_view', {'id': theResume.id}) }}">
+          {{ theResume.objet }}
+        </a>
+        par {{ theResume.user }},
+        le {{ theResume.date|date('d/m/Y') }}
+      </li>
+    {% endfor %}
+  </ul>
+ <div class="navigation">
+                    {{ knp_pagination_render(listTheResumes) }}
+                </div>
+                
+            {% else %}
+      Pas (encore !) de CV en ligne
+{% endif %}
+</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-primary" style="border-color:white">
+				
+				<div class="panel-body"> 
+				{{ render(controller("OCPubBundle:Pub:banniLarge")) }}
+						</div>
+		</div>
+	</div>
+  
+{% endblock %}

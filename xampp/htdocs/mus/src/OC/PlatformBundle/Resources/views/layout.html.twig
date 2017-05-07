@@ -1,0 +1,15 @@
+{# src/OC/PlatformBundle/Resources/views/layout.html.twig #}
+
+{% extends "OCCoreBundle::layout.html.twig" %}
+
+{% block title %}
+  Annonces - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+  {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
+  {% block ocplatform_body %}
+  {% endblock %}
+
+{% endblock %}

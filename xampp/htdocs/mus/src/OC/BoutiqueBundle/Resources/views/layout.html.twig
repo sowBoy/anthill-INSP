@@ -1,0 +1,14 @@
+{# src/OC/OnlineCvBundle/Resources/views/layout.html.twig #}
+
+{% extends "OCCoreBundle::layout.html.twig" %}
+
+{% block title %}
+ Shoping - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
+  {% block ocboutique_body %}
+  {% endblock %}
+
+{% endblock %}

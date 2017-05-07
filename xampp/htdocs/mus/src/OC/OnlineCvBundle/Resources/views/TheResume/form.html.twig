@@ -1,0 +1,658 @@
+<h3>Formulaire d'ajout d'un CV</h3>
+<div class="well">
+  {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+  {# Les erreurs générales du formulaire. #}
+  {{ form_errors(form) }}
+
+  {# Génération du label + error + widget pour un champ. #}
+  {% if form.date is defined %}
+    {{ form_row(form.date) }}
+  {% endif %}
+
+  {# Génération manuelle et éclatée : #}
+  <div class="form-group">
+    {# Génération du label. #}
+    {{ form_label(form.objet, "Objet du CV", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form.objet) }}
+
+    <div class="col-sm-10">
+      {# Génération de l'input. #}
+      {{ form_widget(form.objet, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  <div class="form-group">
+    {# Génération du label. #}
+    {{ form_label(form.firstname, "Votre prenom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form.firstname) }}
+
+    <div class="col-sm-10">
+      {# Génération de l'input. #}
+      {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+  <div class="form-group">
+    {# Génération du label. #}
+    {{ form_label(form.lastname, "Votre nom de famille", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form.lastname) }}
+
+    <div class="col-sm-10">
+      {# Génération de l'input. #}
+      {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+  <div class="form-group">
+    {# Génération du label. #}
+    {{ form_label(form.adress, "Votre adresse", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form.adress) }}
+
+    <div class="col-sm-10">
+      {# Génération de l'input. #}
+      {{ form_widget(form.adress, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+  <div class="form-group">
+    {# Génération du label. #}
+    {{ form_label(form.town, "Ville d'habitation", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form.town) }}
+
+    <div class="col-sm-10">
+      {# Génération de l'input. #}
+      {{ form_widget(form.town, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+  <div class="form-group">
+    {# Génération du label. #}
+    {{ form_label(form.zip, "Code postal", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form.zip) }}
+
+    <div class="col-sm-10">
+      {# Génération de l'input. #}
+      {{ form_widget(form.zip, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+  <div class="form-group">
+    {# Génération du label. #}
+    {{ form_label(form.country, "Pays", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form.country) }}
+
+    <div class="col-sm-10">
+      {# Génération de l'input. #}
+      {{ form_widget(form.country, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+  <div class="form-group">
+    {# Génération du label. #}
+    {{ form_label(form.email, "Adresse mail", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form.email) }}
+
+    <div class="col-sm-10">
+      {# Génération de l'input. #}
+      {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+  <div class="form-group">
+    {# Génération du label. #}
+    {{ form_label(form.phone, "Numéro de téléphone", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form.phone) }}
+
+    <div class="col-sm-10">
+      {# Génération de l'input. #}
+      {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+  <div class="form-group">
+    {# Génération du label. #}
+    {{ form_label(form.website, "Votre eventuel site web", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form.website) }}
+
+    <div class="col-sm-10">
+      {# Génération de l'input. #}
+      {{ form_widget(form.website, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+  <div class="form-group">
+    {# Génération du label. #}
+    {{ form_label(form.profile, "Votre profil", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form.profile) }}
+
+    <div class="col-sm-10">
+      {# Génération de l'input. #}
+      {{ form_widget(form.profile, {'attr': {'class': 'ckeditor'}}) }}
+    </div>
+  </div>
+  {% if form.formations is defined %}
+  <div class="well">
+  {{ form_row(form.formations) }}
+  <a href="#" id="add_formations" class="btn btn-default">Ajouter une formation</a>
+  </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#oc_onlinecvbundle_theresume_formations');
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+    var index = $container.find(':input').length;
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    $('#add_formations').click(function(e) {
+      addFormations($container);
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+    if (index == 0) {
+      addFormations($container);
+    } else {
+      // S'il existe déjà des competances, on ajoute un lien de suppression pour chacune d'entre elles
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    }
+    // La fonction qui ajoute un formulaire CategoryType
+
+    function addFormations($container) {
+
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+
+      // - le texte "__name__label__" qu'il contient par le label du champ
+
+      // - le texte "__name__" qu'il contient par le numéro du champ
+
+      var template = $container.attr('data-prototype')
+
+        .replace(/__name__label__/g, 'Formation n°' + (index+1))
+
+        .replace(/__name__/g,        index)
+
+      ;
+
+      // On crée un objet jquery qui contient ce template
+
+      var $prototype = $(template);
+
+
+      // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+
+      addDeleteLink($prototype);
+
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+
+      $container.append($prototype);
+
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+
+      index++;
+
+    }
+    // La fonction qui ajoute un lien de suppression d'une catégorie
+
+    function addDeleteLink($prototype) {
+
+      // Création du lien
+
+      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+
+      // Ajout du lien
+
+      $prototype.append($deleteLink);
+
+
+      // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+
+      $deleteLink.click(function(e) {
+
+        $prototype.remove();
+
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+
+        return false;
+
+      });
+
+    }
+
+  });
+
+</script>
+ {% endif %}
+ {% if form.experiences is defined %} 
+  <div class="well">
+  {{ form_row(form.experiences) }}
+  <a href="#" id="add_experiences" class="btn btn-default">Ajouter une expérience</a>
+  </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#oc_onlinecvbundle_theresume_experiences');
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+    var index = $container.find(':input').length;
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    $('#add_experiences').click(function(e) {
+      addExperiences($container);
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+    if (index == 0) {
+      addExperiences($container);
+    } else {
+      // S'il existe déjà des competances, on ajoute un lien de suppression pour chacune d'entre elles
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    }
+    // La fonction qui ajoute un formulaire CategoryType
+
+    function addExperiences($container) {
+
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+
+      // - le texte "__name__label__" qu'il contient par le label du champ
+
+      // - le texte "__name__" qu'il contient par le numéro du champ
+
+      var template = $container.attr('data-prototype')
+
+        .replace(/__name__label__/g, 'Expérience n°' + (index+1))
+
+        .replace(/__name__/g,        index)
+
+      ;
+
+      // On crée un objet jquery qui contient ce template
+
+      var $prototype = $(template);
+
+
+      // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+
+      addDeleteLink($prototype);
+
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+
+      $container.append($prototype);
+
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+
+      index++;
+
+    }
+    // La fonction qui ajoute un lien de suppression d'une catégorie
+
+    function addDeleteLink($prototype) {
+
+      // Création du lien
+
+      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+
+      // Ajout du lien
+
+      $prototype.append($deleteLink);
+
+
+      // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+
+      $deleteLink.click(function(e) {
+
+        $prototype.remove();
+
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+
+        return false;
+
+      });
+
+    }
+
+  });
+
+</script>
+  {% endif %}
+   {% if form.competences is defined %}
+  <div class="well">
+  {{ form_row(form.competences) }}
+  <a href="#" id="add_competences" class="btn btn-default">Ajouter une competence</a>
+  </div>
+
+{# On charge la bibliothèque jQuery. Ici, je la prends depuis le CDN google
+   mais si vous l'avez en local, changez simplement l'adresse. #}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{# Voici le script en question : #}
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#oc_onlinecvbundle_theresume_competences');
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+    var index = $container.find(':input').length;
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    $('#add_competences').click(function(e) {
+      addCompetence($container);
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+    if (index == 0) {
+      addCompetence($container);
+    } else {
+      // S'il existe déjà des competances, on ajoute un lien de suppression pour chacune d'entre elles
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    }
+    // La fonction qui ajoute un formulaire CategoryType
+
+    function addCompetence($container) {
+
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+
+      // - le texte "__name__label__" qu'il contient par le label du champ
+
+      // - le texte "__name__" qu'il contient par le numéro du champ
+
+      var template = $container.attr('data-prototype')
+
+        .replace(/__name__label__/g, 'Competence n°' + (index+1))
+
+        .replace(/__name__/g,        index)
+
+      ;
+
+      // On crée un objet jquery qui contient ce template
+
+      var $prototype = $(template);
+
+
+      // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+
+      addDeleteLink($prototype);
+
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+
+      $container.append($prototype);
+
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+
+      index++;
+
+    }
+    // La fonction qui ajoute un lien de suppression d'une catégorie
+
+    function addDeleteLink($prototype) {
+
+      // Création du lien
+
+      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+
+      // Ajout du lien
+
+      $prototype.append($deleteLink);
+
+
+      // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+
+      $deleteLink.click(function(e) {
+
+        $prototype.remove();
+
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+
+        return false;
+
+      });
+
+    }
+
+  });
+
+</script>
+ {% endif %} 
+  {% if form.langues is defined %}
+  <div class="well">
+  {{ form_row(form.langues) }}
+  <a href="#" id="add_langues" class="btn btn-default">Ajouter une langue</a>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  {# Voici le script en question : #}
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#oc_onlinecvbundle_theresume_langues');
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+    var index = $container.find(':input').length;
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    $('#add_langues').click(function(e) {
+      addLangues($container);
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+    if (index == 0) {
+      addLangues($container);
+    } else {
+      // S'il existe déjà des competances, on ajoute un lien de suppression pour chacune d'entre elles
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    }
+  
+    function addLangues($container) {
+
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+
+      // - le texte "__name__label__" qu'il contient par le label du champ
+
+      // - le texte "__name__" qu'il contient par le numéro du champ
+
+      var template = $container.attr('data-prototype')
+
+        .replace(/__name__label__/g, 'Langue n°' + (index+1))
+
+        .replace(/__name__/g,        index)
+
+      ;
+
+      // On crée un objet jquery qui contient ce template
+
+      var $prototype = $(template);
+
+
+      // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+
+      addDeleteLink($prototype);
+
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+
+      $container.append($prototype);
+
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+
+      index++;
+
+    }
+    // La fonction qui ajoute un lien de suppression d'une catégorie
+
+    function addDeleteLink($prototype) {
+
+      // Création du lien
+
+      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+
+      // Ajout du lien
+
+      $prototype.append($deleteLink);
+
+
+      // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+
+      $deleteLink.click(function(e) {
+
+        $prototype.remove();
+
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+
+        return false;
+
+      });
+
+    }
+
+  });
+
+</script>
+{% endif %}
+ {% if form.loisirs is defined %}
+<div class="well">
+  {{ form_row(form.loisirs) }}
+  <a href="#" id="add_loisirs" class="btn btn-default">Ajouter un loisir</a>
+  </div>
+{# Voici le script en question : #}
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#oc_onlinecvbundle_theresume_loisirs');
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+    var index = $container.find(':input').length;
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    $('#add_loisirs').click(function(e) {
+      addLoisirs($container);
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+    if (index == 0) {
+      addLoisirs($container);
+    } else {
+      // S'il existe déjà des competances, on ajoute un lien de suppression pour chacune d'entre elles
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    }
+    // La fonction qui ajoute un formulaire CategoryType
+
+    function addLoisirs($container) {
+
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+
+      // - le texte "__name__label__" qu'il contient par le label du champ
+
+      // - le texte "__name__" qu'il contient par le numéro du champ
+
+      var template = $container.attr('data-prototype')
+
+        .replace(/__name__label__/g, 'Loisir n°' + (index+1))
+
+        .replace(/__name__/g,        index)
+
+      ;
+
+      // On crée un objet jquery qui contient ce template
+
+      var $prototype = $(template);
+
+
+      // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+
+      addDeleteLink($prototype);
+
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+
+      $container.append($prototype);
+
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+
+      index++;
+
+    }
+    // La fonction qui ajoute un lien de suppression d'une catégorie
+
+    function addDeleteLink($prototype) {
+
+      // Création du lien
+
+      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+
+      // Ajout du lien
+
+      $prototype.append($deleteLink);
+
+
+      // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+
+      $deleteLink.click(function(e) {
+
+        $prototype.remove();
+
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+
+        return false;
+
+      });
+
+    }
+
+  });
+
+</script>
+{% endif %}
+  
+   {% if form.published is defined %}
+    {{ form_row(form.published) }}
+  {% endif %}
+  
+  {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+  {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+  {# Génération automatique des champs pas encore écrits.
+     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+     et tous les champs cachés (type « hidden »). #}
+  {{ form_rest(form) }}
+
+  {# Fermeture de la balise <form> du formulaire HTML #}
+  {{ form_end(form) }}
+</div>

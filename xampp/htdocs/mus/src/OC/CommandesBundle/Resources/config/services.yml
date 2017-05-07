@@ -1,0 +1,4 @@
+services:
+  setNewReference:
+    class: OC\CommandesBundle\services\GetReference
+    arguments: ["@security.token_storage", "@doctrine.orm.entity_manager"]

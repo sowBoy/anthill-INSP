@@ -1,0 +1,23 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/edit.html.twig #}
+
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+  Modifier - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+  <h2>Modifier</h2>
+
+  {{ include("OCBoutiqueBundle:Tarification:form.html.twig") }}
+
+ 
+  <p>
+    <a href="{{ path('oc_boutique_menu') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour 
+    </a>
+  </p>
+
+{% endblock %}

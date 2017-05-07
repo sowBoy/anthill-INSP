@@ -1,0 +1,36 @@
+
+<script type="text/javascript>
+  
+  var nBanDelais = 10;
+  aBannieres = new Array();
+  // Bannières
+  aBannieres[0] = new twBanniere("http://www.trucsweb.com/","https://www.clubcourses.fr/medias/publicite/leaderboard-agence-martinez-728x90.gif","Titre 1");
+  aBannieres[1] = new twBanniere("http://www.google.com/","https://www.clubcourses.fr/medias/publicite/leaderboard-agence-martinez-728x90.gif","Titre 2");
+  aBannieres[2] = new twBanniere("http://www.w3c.org/","https://www.clubcourses.fr/medias/publicite/leaderboard-agence-martinez-728x90.gif","Titre 3");
+ 
+  // Ne pas modifier le code suivant
+  function twBanniere(_url,_src,_texte) {this.url=_url;this.src=_src;this.texte=_texte;}
+ 
+  function twRotation(){
+    nBanPos=(nBanPos<nBanMax-1)?nBanPos+1:0;
+    if (document.all){
+      document.images["twban"].style.filter="blendTrans(duration=2)";
+      document.images["twban"].style.filter="blendTrans(duration=CrossFadeDuration)";
+      document.images["twban"].filters.blendTrans.Apply();
+    }
+    document.images["twban"].src=aBannieres[nBanPos].src;
+    if (document.all) document.images["twban"].filters.blendTrans.Play();
+      oTimer = setTimeout("twRotation()",nBanDelais*1000);
+    }
+    var nBanPos = 0;
+    var oTimer;
+    var nBanMax = aBannieres.length;
+    
+  </script>
+  <a href="javascript:document.location.href=aBannieres[nBanPos].url" onMouseOver="window.status=aBannieres[nBanPos].url; return true" onMouseOut="window.status=’’;">
+<img src="https://www.clubcourses.fr/medias/publicite/leaderboard-agence-martinez-728x90.gif" alt="Chargement..."  name="twban" border="0" onMouseOver="this.title=aBannieres[nBanPos].texte;"/></a>
+<script type="text/javascript" language="javascript">
+<!--
+twRotation();
+// -->
+</script>

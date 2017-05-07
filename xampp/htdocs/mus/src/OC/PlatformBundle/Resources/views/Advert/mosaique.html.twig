@@ -1,0 +1,57 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/index.html.twig #}
+
+{% block ocplatform_body %}
+
+  <h3>Dernières offres d'emploi</h3>
+{% if listJobs|length != 0 %}
+  <ul>
+    {% for advert in listJobs %}
+      <li>
+        <a href="{{ path('oc_platform_view', {'id': advert.id}) }}">
+          {{ advert.title }}
+        </a>
+        par {{ advert.user }},
+        le {{ advert.date|date('d/m/Y') }}
+      </li>
+    
+    {% endfor %}
+  </ul>  
+            {% else %}
+      Pas (encore !) d'offres d'emploi.
+{% endif %}
+<h3>Dernières annonces</h3>
+{% if listAnnons|length != 0 %}
+  <ul>
+    {% for annonce in listAnnons %}
+      <li>
+        <a href="{{ path('oc_annonce_view', {'id': annonce.id}) }}">
+          {{ annonce.title }}
+        </a>
+        par {{ annonce.user }},
+        le {{ annonce.date|date('d/m/Y') }}
+      </li>
+    
+    {% endfor %}
+  </ul>  
+            {% else %}
+      Pas (encore !) d'annonces.
+{% endif %}
+<h3>Dernièrs CV en ligne</h3>
+{% if listCvs|length != 0 %}
+  <ul>
+    {% for theResume in listCvs %}
+      <li>
+        <a href="{{ path('oc_online_cv_view', {'id': theResume.id}) }}">
+          {{ theResume.objet }}
+        </a>
+        par {{ theResume.user }},
+        le {{ theResume.date|date('d/m/Y') }}
+      </li>
+    
+    {% endfor %}
+  </ul>  
+            {% else %}
+      Pas (encore !) de CV en ligne.
+{% endif %}
+  
+{% endblock %}

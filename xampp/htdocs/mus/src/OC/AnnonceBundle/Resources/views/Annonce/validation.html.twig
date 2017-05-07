@@ -1,0 +1,50 @@
+{# src/OC/PlatformBundle/Resources/view/Advert/view.html.twig #}
+
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+  Lecture d'une annonce - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+  <div style="float: left; margin-right: 1em;">
+    {# On vérifie qu'une image soit bien associée à l'article #}
+    {% if preAnnonce.image is not null %}
+      <img
+        src="{{ asset(preAnnonce.image.webPath) }}"
+        alt="{{ preAnnonce.image.alt }}"
+        height="60"
+      />
+    {% endif %}
+  </div>
+
+  <h2>{{ preAnnonce.categorie }}-{{ preAnnonce.title }}-{{ preAnnonce.localisation }}{% if preAnnonce.prix is not empty %}-{{ preAnnonce.prix }}€{% endif %}</h2>
+  <i>Par {{ preAnnonce.user }}, le {{ preAnnonce.date|date('d/m/Y') }}</i></br>
+
+   <h2>Contenu</h2>
+  <div class="well">
+    {{ preAnnonce.content|raw }}
+	
+  </div>
+  
+  
+  
+  <p>
+    <a href="{{ path('oc_annonce_checkin') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à la liste
+    </a>
+	
+    <a href="{{ path('oc_annonce_valid', {'id': preAnnonce.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-edit"></i>
+      Valider
+    </a>
+    <a href="{{ path('oc_annonce_decliner', {'id': preAnnonce.id}) }}" class="btn btn-danger">
+      <i class="glyphicon glyphicon-trash"></i>
+      Décliner
+    </a>
+	
+  </p>
+
+{% endblock %}

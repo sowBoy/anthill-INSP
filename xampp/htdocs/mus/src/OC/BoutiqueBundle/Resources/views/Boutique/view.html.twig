@@ -1,0 +1,61 @@
+{% extends "OCBoutiqueBundle::layout.html.twig" %}
+{% block body %}
+
+  <div class="container">   
+<div style="float: left; margin-right: 1em; margin-top: 1em">
+    {% if boutique.image is not null %}
+      <img
+        src="{{ asset(boutique.image.webPath) }}"
+        alt="{{ boutique.image.alt }}"
+        height="65" class="img-circle">
+     
+    {% endif %}
+  </div>  
+  <h2>{{ boutique.name }} {% if boutique.user ==  app.user %}
+   <a href="{{ path('oc_boutique_edit', {'id': boutique.id}) }}" class="btn btn-default" style="margin-bottom: 1em">
+      <i class="glyphicon glyphicon-edit"></i>
+      Gerer les produits
+    </a>
+
+	{% endif %}</h2>
+ 
+   <div class='col-xs-7' style="margin-bottom: 1em; margin-top: 0.5em">
+    {{ boutique.description }}
+	</div>
+  </br>
+<div class='thumbnail' style=" border-width: 0px ">
+	   <div class='col-sm-9 col-lg-9 col-md-9'style="border-left:solid; border-color:purple;   border-bottom-left-radius: 30px; margin-bottom: 13px">
+	       
+                {% for produit in listProduits %}
+				<div class='col-sm-5 col-lg-5 col-md-5' style=" margin-bottom: 13px ">
+	      <a href="{{ path('oc_product_view', {'id': produit.id}) }}">
+                    <img
+        src="{{ asset(produit.image.webPath) }}"
+        alt="{{ produit.image.alt }}"
+        height="62" class="img-thumbnail"></a><h5 class='pull-right' style="background-color:black; color:white ">{{ produit.nom }}</h5><h5 class='pull-right-bottom' style="background-color:black; color:yellow ">{{ produit.prix }}€</h5>{% if not loop.last %}</br> {% else %}.{% endif %}
+                    
+                   </div>
+               {% endfor %}
+ 
+  
+   </div>
+  
+  </div>  
+
+  </div>
+<div class="container">  
+
+
+<p >
+    <a href="{{ path('oc_boutique_menu') }}" class="btn btn-default" style="margin-bottom: 1em">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à la liste
+    </a>
+
+	
+	 </p>	
+	 
+ 
+   
+  </div>  
+{% endblock %}

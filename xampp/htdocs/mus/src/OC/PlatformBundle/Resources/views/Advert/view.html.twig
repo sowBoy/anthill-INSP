@@ -1,0 +1,64 @@
+{# src/OC/PlatformBundle/Resources/view/Advert/view.html.twig #}
+
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+  Lecture d'une annonce - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+  <div style="float: left; margin-right: 1em;">
+    {# On vérifie qu'une image soit bien associée à l'article #}
+    {% if advert.image is not null %}
+      <img
+        src="{{ asset(advert.image.webPath) }}"
+        alt="{{ advert.image.alt }}"
+        height="60"
+      />
+    {% endif %}
+  </div>
+
+  <h2>{{ advert.type }}-{{ advert.title }}-{{ advert.localisation }}-{{ advert.salaire }}€</h2>
+  <i>Par {{ advert.user }}, le {{ advert.date|date('d/m/Y') }}</i></br>
+   <div class="well">
+<h3>L'entreprise</h3>
+ 
+  
+    {{ advert.entreprise|raw }}
+  
+   <h3>Dèscription</h3>
+  
+    {{ advert.content|raw }}
+  
+  <h3>Le Profil cherché</h3> 
+  
+ 
+    {{ advert.profile|raw }}
+  </div>
+
+  
+
+  <p>
+    <a href="{{ path('oc_platform_home') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à la liste
+    </a>
+	
+	 {% if advert.user ==  app.user %}
+    <a href="{{ path('oc_platform_edit', {'id': advert.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-edit"></i>
+      Modifier l'annonce
+    </a>
+    <a href="{{ path('oc_platform_delete', {'id': advert.id}) }}" class="btn btn-danger">
+      <i class="glyphicon glyphicon-trash"></i>
+      Supprimer l'annonce
+    </a>
+	{% endif %}
+	<a href="{{ path('oc_platform_apply', {'id': advert.id}) }}" class="btn btn-primary">
+      <i class="glyphicon glyphicon-user"></i>
+      Postuler
+    </a>
+  </p>
+
+{% endblock %}

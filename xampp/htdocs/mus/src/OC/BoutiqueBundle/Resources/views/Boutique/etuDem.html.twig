@@ -1,0 +1,26 @@
+{% extends "OCBoutiqueBundle::layout.html.twig" %}
+{% block body %}
+
+  <h2>{{ etuDem.objet }}</h2>
+  <i>Par {{ etuDem.user }}</i>
+
+  <div class="well">
+    {{ etuDem.description }}
+  </div>
+  <p>
+    <a href="{{ path('oc_boutique_lesDemandes') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à la liste
+    </a>
+	
+    <a href="{{ path('oc_boutique_accepter', {'id': etuDem.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-edit"></i>
+      Accepter
+    </a>
+    <a href="{{ path('oc_boutique_refuser', {'id': etuDem.id}) }}" class="btn btn-danger">
+      <i class="glyphicon glyphicon-trash"></i>
+      Refuser
+    </a>
+	
+  </p>
+{% endblock %}

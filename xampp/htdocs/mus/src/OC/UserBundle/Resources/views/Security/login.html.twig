@@ -1,0 +1,49 @@
+{% extends "OCUserBundle::layout.html.twig" %}
+{% block body %}
+		
+
+    <div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-primary" style="border-color:white">
+				<div class="panel-heading">
+					<h3 class="panel-title">Formulaire de connexion</h3>
+					
+				</div>
+				<div class="panel-body">
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<form action="{{ path('fos_user_security_check') }}" method="post">
+ <div class="form-group">
+    <label for="username">Nom d'utilisateur:</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
+
+    <label for="password">Mot de passe:</label>
+    <input type="password" id="password" name="_password" class="form-control"/>
+
+    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+    <label for="remember_me">Se souvenir de moi</label>
+</div>
+   
+    <button type="submit" class="btn btn-success">Valider</button>
+	    <div class="centering text-center">
+				<p>Mot de passe oublié? <a href="{{path('fos_user_resetting_request')}}">clicker ici</a></p>
+				<p>Nouveau? <a href="{{path('fos_user_registration_register')}}">création compte</a></p>
+			</div>
+</form>
+</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-primary" style="border-color:white">
+				
+				<div class="panel-body"> 
+				{{ render(controller("OCPubBundle:Pub:banniLarge")) }}
+						</div>
+		</div>
+	</div>
+
+	
+
+{% endblock %}

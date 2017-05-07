@@ -1,0 +1,8 @@
+ 
+<nav class="navbar navbar-light bg-faded" style="background-color:#441356">
+ <form action="{{ path('oc_recherche_boutiqueTr') }}" method="POST" class="navbar-form navbar-left">
+    {{ form_widget(form.recherche) }}
+    <button type="submit" class="btn" style="margin-top:2px">Rechercher</button>
+    {{ form_widget(form) }}
+   </form>
+	</nav>

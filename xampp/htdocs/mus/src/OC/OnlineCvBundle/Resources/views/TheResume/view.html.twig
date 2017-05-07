@@ -1,0 +1,104 @@
+ {% extends "OCOnlineCvBundle::layout.html.twig" %}
+ 
+ {% block title %}
+  Lecture d'un CV - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div class="row col-sm-10">
+ <dl class="dl-horizontal" style="border:solid; background-color:#ecc6d9; border-color:white">
+  <dt></br><h4 style="font-weight:bold; color:#13060d">Compétences</h4>
+ {% if theResume.competences|length > 0 %}
+                {% for competences in theResume.competences %}
+				<ul>
+				<li>
+                    {{ competences.nom }}{% if not loop.last %}</br> {% else %}.{% endif %}
+               </li>
+			   </ul>
+			   {% endfor %}
+{% endif %}
+<h4 style="font-weight:bold; color:#13060d">Langues</h4>
+ {% if theResume.langues|length > 0 %}
+                {% for langues in theResume.langues %}
+				<ul>
+				<li>
+                    {{ langues.nom }}{% if not loop.last %}</br> {% else %}.{% endif %}
+               </li>
+			   </ul>
+			   {% endfor %}
+{% endif %}
+<h4 style="font-weight:bold; color:#13060d">Loisirs</h4>
+ {% if theResume.loisirs|length > 0 %}
+                {% for loisirs in theResume.loisirs %}
+				<ul>
+				<li>
+                    {{ loisirs.nom }}{% if not loop.last %}</br> {% else %}.{% endif %}
+               </li>
+			   </ul>
+			   {% endfor %}
+{% endif %}</dt>
+  <dd style="background-color:#ccccff"><h3 style="border-bottom:solid; color:#13060d">{{ theResume.objet }}</h3>
+  <p style="font-style:italic; background-color:#bb99ff; text-color:#9966ff; font-weight:bold">{{ theResume.lastname }}{{' '}}
+  {{ theResume.firstname }}{{' '}}{{ theResume.adress }}{{','}}{{' '}}{{ theResume.zip }}{{' '}}{{ theResume.town }}
+  {{'.'}}{{' '}}{{'Telephone :'}}{{ theResume.phone }}{{','}}{{' '}}{{'Email :'}}{{ theResume.email }}</p>
+  </br>
+  <h4 style="font-weight:bold; color:#13060d">Profil</h4>
+{{ theResume.profile|raw }}</br>
+ <h4 style="font-weight:bold; color:#13060d">Formations</h4>
+ {% if theResume.formations|length > 0 %}
+                {% for formations in theResume.formations %}
+				<ul>
+				<li>
+                    <h5 style="color:#13060d">{{ formations.nom }}</h5>{{ formations.periode }}/{{ formations.ecole }}{% if not loop.last %}</br> {% else %}.{% endif %}
+               </li>
+			   </ul>
+			   {% endfor %}
+{% endif %}</br>
+ <h4 style="color:#13060d">Expériences professionnelles</h4>
+ {% if theResume.experiences|length > 0 %}
+                {% for experiences in theResume.experiences %}
+				<ul>
+				<li>
+                    <h5 style="color:blue">{{ experiences.titre }}{{' '}}<i class="glyphicon glyphicon-resize-horizontal"></i>{{' '}}{{ experiences.periode }}</h5>{{ experiences.details }}{% if not loop.last %}</br> {% else %}.{% endif %}
+               </li>
+			   </ul>
+			   {% endfor %}
+{% endif %}</dd>
+</dl>
+
+	
+    <div class="centering text-center">
+    <p>
+    <a href="{{ path('oc_online_cv_home') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à la liste
+    </a>
+	 {% if theResume.user ==  app.user %}
+    <a href="{{ path('oc_online_cv_edit', {'id': theResume.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-edit"></i>
+      Modifier le CV
+    </a>
+    <a href="{{ path('oc_online_cv_delete', {'id': theResume.id}) }}" class="btn btn-danger">
+      <i class="glyphicon glyphicon-trash"></i>
+      Supprimer le CV
+    </a>
+	{% endif %}
+  </p>
+        </div>
+		</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

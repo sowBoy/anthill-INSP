@@ -1,0 +1,33 @@
+# src/OC/CoreBundle/Resources/config/routing.yml
+
+oc_core_home:
+    path: /
+    defaults:
+        _controller: OCCoreBundle:Core:index
+
+oc_core_contact:
+    path: /contact
+    defaults:
+        _controller: OCCoreBundle:Core:contact
+        
+oc_core_malin:
+    path: /malin
+    defaults:
+        _controller: OCCoreBundle:Core:malin
+        
+oc_core_message:
+    path: /message
+    defaults:
+        _controller: OCCoreBundle:Core:message
+        
+oc_core_nous:
+    path: /nous
+    defaults:
+        _controller: OCCoreBundle:Core:nous
+        
+oc_core_existent:
+    path: /existent
+    defaults:
+        _controller: OCCoreBundle:Core:existent
+
+

@@ -1,0 +1,29 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/delete.html.twig #}
+
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+  Supprimer un CV - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+  <h2>Supprimer un CV</h2>
+
+  <p>
+    Etes-vous certain de vouloir supprimer le CV "{{ preTheResume.objet }}" ?
+  </p>
+
+  
+  <form action="{{ path('oc_online_cv_decliner', {'id': preTheResume.id}) }}" method="post">
+    <a href="{{ path('oc_online_cv_validation', {'id': preTheResume.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour 
+    </a>
+    {# Ici j'ai écrit le bouton de soumission à la main #}
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {# Ceci va générer le champ CSRF #}
+    {{ form_rest(form) }}
+  </form>
+
+{% endblock %}

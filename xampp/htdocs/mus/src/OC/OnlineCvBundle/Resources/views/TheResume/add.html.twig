@@ -1,0 +1,15 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/add.html.twig #}
+
+{% extends "OCOnlineCvBundle::layout.html.twig" %}
+{% block title %}
+  Ajouter un CV - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+  <h2>Ajouter Un CV</h2>
+
+  {{ include("OCOnlineCvBundle:TheResume:form.html.twig") }}
+
+
+{% endblock %}

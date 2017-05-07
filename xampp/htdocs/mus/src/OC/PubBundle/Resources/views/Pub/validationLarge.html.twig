@@ -1,0 +1,50 @@
+{# src/OC/PlatformBundle/Resources/view/Advert/view.html.twig #}
+
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+  Lecture d'une Bannière - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+  <div style="float: left; margin-right: 1em;">
+    {# On vérifie qu'une image soit bien associée à l'article #}
+    {% if preBanniLarge.banni is not null %}
+      <img
+        src="{{ asset(preBanniLarge.banni.webPath) }}"
+        alt="{{ preBanniLarge.banni.alt }}"
+        height="60"
+      />
+    {% endif %}
+  </div>
+
+  <h2>{{ preBanniLarge.name }}</h2>
+  <i>Par {{ preBanniLarge.user }}</br>
+
+   <h2>Site </h2>
+  <div class="well">
+    {{ preBanniLarge.lien }}
+	
+  </div>
+  
+  
+  
+  <p>
+    <a href="{{ path('oc_pub_checkin') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à la liste
+    </a>
+	
+    <a href="{{ path('oc_pub_validLarge', {'id': preBanniLarge.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-edit"></i>
+      Valider
+    </a>
+    <a href="{{ path('oc_pub_declinerLarge', {'id': preBanniLarge.id}) }}" class="btn btn-danger">
+      <i class="glyphicon glyphicon-trash"></i>
+      Décliner
+    </a>
+	
+  </p>
+
+{% endblock %}

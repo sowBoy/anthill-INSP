@@ -1,0 +1,27 @@
+oc_user_roles:
+    path:     /roles
+    defaults: { _controller: OCUserBundle:User:roles }
+    
+oc_user_facture:
+    path:     /facture
+    defaults: { _controller: OCUserBundle:User:facture }
+    
+oc_user_facturePDF:
+    path:     /facturePDF/{id}
+    defaults: { _controller: OCUserBundle:User:facturePDF }
+    requirements:
+        id: \d+
+        
+oc_user_ventes:
+    path:     /ventes
+    defaults: { _controller: OCUserBundle:User:ventes }
+    
+oc_user_shop:
+    path:     /shop
+    defaults: { _controller: OCUserBundle:User:shop }
+    
+oc_user_amenager:
+    path:     /amenager
+    defaults: { _controller: OCUserBundle:User:amenager }
+    
+

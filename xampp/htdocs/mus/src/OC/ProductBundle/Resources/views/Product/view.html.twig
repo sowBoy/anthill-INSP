@@ -1,0 +1,70 @@
+{% extends "OCBoutiqueBundle::layout.html.twig" %}
+
+{% block body %}
+
+<div style="margin-top:20px;">
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-4">
+                        <img id="zoom_01" src="{{ asset(produit.image.webPath) }}" data-zoom-image="{{ asset(produit.image.webPath) }}" class="img-thumbnail">
+                    </div>
+
+                    <div class="col-xs-6 col-sm-4">
+                        <h4>{{ produit.nom }}</h4>
+                        <p>{{ produit.descriptif }}</p>
+                        <h4>{{ produit.prix }} €</h4>
+						{% if produit.taille is not empty %}
+                        
+                           <h4>Taille: {{ produit.taille }}</h4>
+                           
+                   
+                       {% endif %}
+					   {% if produit.couleur is not empty %}
+                    
+                                           
+                        
+                           COULEUR : <button type="button" class="btn" style="background-color:{{ produit.couleur }}"></button>
+                           
+                       
+                   {% endif %}
+                        {% if panier[produit.id] is not defined %}
+                        <form action="{{ path('oc_product_ajouter', { 'id' : produit.id }) }}" method="get">
+                            <select name="qte" class="span1">
+							{% if produit.quantity >= 1 %}
+                                {% for i in 1..produit.quantity %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+								{% endif %}
+                            </select>
+
+                            <div>
+                                <button class="btn btn-success" style="margin-top:10px; margin-bottom:10px"><span" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Ajouter</button>
+                            </div>
+                        </form>
+                        {% else %}
+                            <div>
+                                <a href="{{ path('oc_product_create') }}" class="btn btn-primary">Le produit est déjà dans votre panier</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+			</div>
+           
+           
+			
+{% endblock %}
+{% block javascripts %}
+   {{ parent() }}
+            {% javascripts '@OCProductBundle/Resources/public/elevate/*' %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+			<script type="text/javascript">
+$(document).ready(function() {
+      	 $("#zoom_01").elevateZoom();
+    });
+</script>				
+
+{% endblock %}

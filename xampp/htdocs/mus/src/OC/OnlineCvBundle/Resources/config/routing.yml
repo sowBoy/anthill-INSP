@@ -1,0 +1,61 @@
+oc_online_cv_home:
+    path: /
+    defaults:
+        _controller: OCCoreBundle:Core:index
+
+oc_online_cv_view:
+    path:      /theResume/{id}
+    defaults:
+        _controller: OCOnlineCvBundle:TheResume:view
+    requirements:
+        id: \d+
+        
+oc_online_cv_add:
+    path:      /add
+    defaults:
+        _controller: OCOnlineCvBundle:TheResume:add
+        
+oc_online_cv_menu:
+    path:      /menu
+    defaults:
+        _controller: OCOnlineCvBundle:TheResume:menu
+        
+oc_online_cv_edit:
+    path:      /edit/{id}
+    defaults:
+        _controller: OCOnlineCvBundle:TheResume:edit
+    requirements:
+        id: \d+
+
+oc_online_cv_delete:
+    path:      /delete/{id}
+    defaults:
+        _controller: OCOnlineCvBundle:TheResume:delete
+    requirements:
+        id: \d+
+        
+oc_online_cv_checkin:
+    path:      /checkin
+    defaults:
+        _controller: OCOnlineCvBundle:TheResume:checkin
+        
+oc_online_cv_validation:
+    path:      /preTheResume/{id}
+    defaults:
+        _controller: OCOnlineCvBundle:TheResume:validation
+    requirements:
+        id: \d+   
+
+oc_online_cv_decliner:
+    path:      /decliner/{id}
+    defaults:
+        _controller: OCOnlineCvBundle:TheResume:decliner
+    requirements:
+        id: \d+ 
+
+oc_online_cv_valid:
+    path:      /valid/{id}
+    defaults:
+        _controller: OCOnlineCvBundle:TheResume:valid
+    requirements:
+        id: \d+                

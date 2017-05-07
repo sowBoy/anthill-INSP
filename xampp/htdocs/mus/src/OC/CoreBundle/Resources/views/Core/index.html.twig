@@ -1,0 +1,34 @@
+{# On utilise ici le layout général, qui se situe dans ce même CoreBundle maintenant #}
+{% extends "OCCoreBundle::layout.html.twig" %}
+
+{% block title %}
+  Page d'accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+  {% for message in app.session.flashbag.get('info') %}
+    <div class="alert alert-info">Message flash : {{ message }}</div>
+  {% endfor %}
+
+  <div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-primary" style="border-color:white">
+				
+				<div class="panel-body">
+  
+  {{ render(controller("OCPlatformBundle:Advert:mosaique", {'limit': 3})) }}
+</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-primary" style="border-color:white">
+				
+				<div class="panel-body"> 
+				{{ render(controller("OCPubBundle:Pub:banniLarge")) }}
+						</div>
+		</div>
+	</div>
+  
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/menu.html.twig #}
+
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+ Checkin - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+<ul class="nav nav-pills nav-stacked">
+  {% for preAdvert in listPreAdverts %}
+    <li>
+      <a href="{{ path('oc_platform_validation', {'id': preAdvert.id}) }}">
+        {{ preAdvert.title }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

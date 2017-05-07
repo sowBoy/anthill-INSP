@@ -1,0 +1,30 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/menu.html.twig #}
+
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+ Checkin - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+<h2>Bannières Horizontales</h2> 
+<ul class="nav nav-pills nav-stacked">
+  {% for preBanniHori in listPreBannHoris %}
+    <li>
+      <a href="{{ path('oc_pub_validationHori', {'id': preBanniHori.id}) }}">
+        {{ preBanniHori.name }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+<h2>Bannières Verticales</h2> 
+<ul class="nav nav-pills nav-stacked">
+  {% for preBanniLarge in listPreBannLarges %}
+    <li>
+      <a href="{{ path('oc_pub_validationLarge', {'id': preBanniLarge.id}) }}">
+        {{ preBanniLarge.name }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

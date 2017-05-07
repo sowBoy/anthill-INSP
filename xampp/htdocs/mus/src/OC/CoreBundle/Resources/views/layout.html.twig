@@ -1,0 +1,180 @@
+{# src/OC/CoreBundle/Resources/views/layout.html.twig #}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}EntreMus{% endblock %}</title>
+
+    {% block stylesheets %}
+      {# On charge le CSS de bootstrap depuis le site directement #}
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+      {% stylesheets filter="cssrewrite, ?scssphp"
+        'bundles/ocplatform/css/main.css'
+        'bundles/ocplatform/css/platform.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+      {% endstylesheets %}
+    {% endblock %}
+      
+ <div class="container">
+
+      <header class="row col-sm-12" >
+
+        <div class="page-header">
+		
+
+<div class="panel-heading" style="background-color:#441356" >
+ <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">EntreMus</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="{{ path('oc_platform_home') }}"><span class="glyphicon glyphicon-home"> Accueil</span></a></li>
+      {% if is_granted('ROLE_ADMIN') %}
+	  <li><div class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" 
+style="width:97px"> Admin
+			  <span class="caret"></span></button>
+			  <ul class="dropdown-menu">
+				<li><a href="{{ path('oc_platform_checkin') }}">Gestion des offres d'emploi</a></li>
+				<li><a href="{{ path('oc_annonce_checkin') }}">Gestion des annonces</a></li>
+				<li><a href="{{ path('oc_pub_checkin') }}">Gestion des bannières</a></li>
+				<li><a href="{{ path('oc_boutique_lesDemandes') }}">Gestion vendeurs</a></li>
+				<li><a href="{{ path('oc_online_cv_checkin') }}">Gestion CV</a></li>
+				<li><a href="{{ path('oc_tarification_ajout') }}">Ajout Tarification</a></li>
+				<li><a href="{{ path('oc_tarification_look') }}">Les Tarifs</a></li>
+				<li><a href="{{ path('oc_user_roles') }}">Ajouter un admin</a></li>
+				
+			  </ul>
+			</div></li>
+			{% endif %}
+      <li><div class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="width:97px"> Shoping
+			  <span class="caret"></span></button>
+			  <ul class="dropdown-menu">
+				<li><a href="{{ path('oc_boutique_menu') }}">Boutiques</a></li>
+				<li><a href="{{ path('oc_boutique_demander') }}">Devenir vendeur</a></li>
+			  </ul>
+			</div></li>
+	  <li><div class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="width:97px"> Annonces
+			  <span class="caret"></span></button>
+			  <ul class="dropdown-menu">
+				<li><a href="{{ path('oc_annonce_look') }}">Les annonces</a></li>
+				<li><a href="{{ path('oc_annonce_add') }}">Ajouter une annonce</a></li>
+			  </ul>
+			</div></li>
+	  <li><div class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="width:97px"> Job
+			  <span class="caret"></span></button>
+			  <ul class="dropdown-menu">
+			    <li><a href="{{ path('oc_platform_look') }}">Les offres</a></li>
+				<li><a href="{{ path('oc_online_cv_menu') }}">Les CV en ligne</a></li>
+				<li><a href="{{ path('oc_platform_add') }}">Deposer une offre</a></li>
+				<li><a href="{{ path('oc_online_cv_add') }}">Deposer un CV</a></li>
+			  </ul>
+			  </div></li>
+			  <li><div class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> Poser une bannière
+			  <span class="caret"></span></button>
+			  <ul class="dropdown-menu">
+				<li><a href="{{ path('oc_pub_addHori') }}">Bannière horizontale  </a></li>
+				<li><a href="{{ path('oc_pub_addLarge') }}">Bannière rectangulaire</a></li>
+			  </ul>
+			</div></li>
+			
+			<li class="active"><a href="{{ path('oc_annonce_contact') }}"><span class="glyphicon glyphicon-envelope"> Contact</span></a></li>
+    </ul>
+   
+  </div>
+</nav>
+       
+</div>
+ 
+{{ render(controller("OCPubBundle:Pub:banniHori")) }}
+
+      </header>
+
+      <div class="row col-sm-12">
+
+        <nav class="col-sm-2">          
+
+          <ul class="nav nav-pills nav-stacked">
+		 
+           
+		  </ul>
+            
+       
+		
+
+        <h3>Utilisateur</h3>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+          Connecté en tant que {{ app.user.username }}
+          <br>
+		  <ul>
+		  <li><a href="{{ path('oc_user_facture') }}">Commandes</a></li>
+          
+		 {% if is_granted('ROLE_SELLER') %}
+		 <li><a href="{{ path('oc_user_ventes') }}">Mes Ventes</a></li>
+		  <li><a href="{{ path('oc_user_shop') }}">Ma boutique</a></li>
+		 {% endif %}
+		  </ul>
+		  <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+        {% else %}
+          <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+        {% endif %}
+        </nav>
+
+        <section class="col-sm-10">
+
+          <div class="panel panel-default">
+
+           
+  
+ </div>
+</head>
+ 
+
+ 
+
+			 
+{% block body %}
+            <div class="panel-body">
+
+              
+              
+              
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+{% endblock %}
+
+
+       <footer class="row col-sm-12">
+
+        <div class="panel-footer" style="background-color:#787272">
+
+
+       </div>
+
+      </footer>
+
+  </div>
+ 
+  {% block javascripts %}
+    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  {% endblock %}
+
+  </body>
+</html>

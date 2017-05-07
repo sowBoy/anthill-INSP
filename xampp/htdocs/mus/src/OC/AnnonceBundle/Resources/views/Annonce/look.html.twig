@@ -1,0 +1,55 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/index.html.twig #}
+
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+  Les annonces - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+ {{ render(controller("OCRechercheBundle:Recherche:annonce")) }}
+
+ </br>
+ </br>
+  
+<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-primary" style="border-color:white">
+				
+				<div class="panel-body">
+<h2>Liste des annonces</h2>
+{% if listAnnonces|length != 0 %}
+  <ul>
+   
+    {% for annonce in listAnnonces %}
+      <li>
+        <a href="{{ path('oc_annonce_view', {'id': annonce.id}) }}">
+          {{ annonce.title }}
+        </a>
+        par {{ annonce.user }},
+        le {{ annonce.date|date('d/m/Y') }}
+      </li>
+	
+    {% endfor %}
+  </ul>
+
+    <div class="navigation">
+                    {{ knp_pagination_render(listAnnonces) }}
+                </div>
+                
+            {% else %}
+      Pas (encore !) d'annonces
+{% endif %}
+</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-primary" style="border-color:white">
+				
+				<div class="panel-body"> 
+				{{ render(controller("OCPubBundle:Pub:banniLarge")) }}
+						</div>
+		</div>
+	</div>
+{% endblock %}

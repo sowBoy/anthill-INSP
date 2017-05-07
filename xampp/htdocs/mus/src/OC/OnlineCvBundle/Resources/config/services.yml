@@ -1,0 +1,5 @@
+services:
+  oc_platform.form.ckeditor:
+    class: OC\OnlineCvBundle\Form\CkeditorType
+    tags:
+      - { name: form.type, alias: ckeditor }

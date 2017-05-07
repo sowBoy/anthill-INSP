@@ -1,0 +1,66 @@
+oc_annonce_home:
+    path: /
+    defaults:
+        _controller: OCCoreBundle:Core:index
+        
+oc_annonce_look:
+    path:       /look
+    defaults:
+        _controller: OCAnnonceBundle:Annonce:look
+        
+oc_annonce_contact:
+    path:       /contact
+    defaults:
+        _controller: OCAnnonceBundle:Annonce:contact
+        
+oc_annonce_checkin:
+    path:      /checkin
+    defaults:
+        _controller: OCAnnonceBundle:Annonce:checkin
+        
+oc_annonce_validation:
+    path:      /preAnnonce/{id}
+    defaults:
+        _controller: OCAnnonceBundle:Annonce:validation
+    requirements:
+        id: \d+   
+
+oc_annonce_decliner:
+    path:      /decliner/{id}
+    defaults:
+        _controller: OCAnnonceBundle:Annonce:decliner
+    requirements:
+        id: \d+ 
+
+oc_annonce_valid:
+    path:      /valid/{id}
+    defaults:
+        _controller: OCAnnonceBundle:Annonce:valid
+    requirements:
+        id: \d+                
+    
+oc_annonce_view:
+    path:      /annonce/{id}
+    defaults:
+        _controller: OCAnnonceBundle:Annonce:view
+    requirements:
+        id: \d+
+        
+oc_annonce_add:
+    path:      /add
+    defaults:
+        _controller: OCAnnonceBundle:Annonce:add
+
+oc_annonce_edit:
+    path:      /edit/{id}
+    defaults:
+        _controller: OCAnnonceBundle:Annonce:edit
+    requirements:
+        id: \d+
+
+oc_annonce_delete:
+    path:      /delete/{id}
+    defaults:
+        _controller: OCAnnonceBundle:Annonce:delete
+    requirements:
+        id: \d+

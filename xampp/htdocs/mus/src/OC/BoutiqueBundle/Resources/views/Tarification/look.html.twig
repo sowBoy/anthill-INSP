@@ -1,0 +1,14 @@
+{% extends "OCBoutiqueBundle::layout.html.twig" %}
+{% block body %}
+<ul class="nav nav-pills nav-stacked">
+  {% for tarif in listTarifications %}
+    <li>
+     Tarif de livraison{{ ' ' }} <a href="{{ path('oc_tarification_modif', {'id': tarif.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-edit"></i>
+      Modifier 
+       </a>
+    </li>
+  {% endfor %}
+</ul>
+ 
+{% endblock %}

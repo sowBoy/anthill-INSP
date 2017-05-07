@@ -1,0 +1,13 @@
+{% block body %}
+<marquee align="center" height="100" scrolldelay="5" scrollamount="3" onmouseout="this.start()" onmouseover="this.stop()">
+{% for banni in listeBanniHoris %}
+
+<a href="">{% if banni.image is not null %}
+      <img
+        src="{{ asset(banni.image.webPath) }}"
+        alt="{{ banni.image.alt }}"
+        style=" height: 100px; width: 650px"/>
+    {% endif %}</a>
+{% endfor %}
+</marquee>
+{% endblock %}

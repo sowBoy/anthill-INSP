@@ -1,0 +1,87 @@
+    
+oc_boutique_view:
+    path:      /boutique/{id}
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:view
+    requirements:
+        id: \d+
+        
+oc_boutique_add:
+    path:      /add
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:add
+             
+oc_boutique_menu:
+    path:      /menu
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:menu
+        
+oc_boutique_edit:
+    path:      /edit/{id}
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:edit
+    requirements:
+        id: \d+
+
+oc_boutique_notification:
+    path:      /notification
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:notification
+        
+oc_boutique_youAre:
+    path:      /youAre
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:youAre
+        
+oc_boutique_secoundB:
+    path:      /secoundB
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:secoundB
+
+oc_boutique_accepter:
+    path:      /accepter/{id}
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:accepter
+    requirements:
+        id: \d+
+        
+oc_boutique_refuser:
+    path:      /refuser/{id}
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:refuser
+    requirements:
+        id: \d+
+        
+oc_boutique_etuDem:
+    path:      /etuDem/{id}
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:etuDem
+    requirements:
+        id: \d+
+        
+oc_boutique_demander:
+    path:      /demander
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:demander
+                
+oc_boutique_lesDemandes:
+    path:      /lesDemandes
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:lesDemandes
+        
+oc_tarification_ajout:
+    path:      /ajout
+    defaults:
+        _controller: OCBoutiqueBundle:Tarification:ajout
+        
+oc_tarification_modif:
+    path:      /modif/{id}
+    defaults:
+        _controller: OCBoutiqueBundle:Tarification:modif
+    requirements:
+        id: \d+
+        
+oc_tarification_look:
+    path:      /look
+    defaults:
+        _controller: OCBoutiqueBundle:Tarification:look

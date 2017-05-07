@@ -1,0 +1,37 @@
+oc_recherche_homepage:
+    path:     /recherP
+    defaults: { _controller: OCRechercheBundle:Default:index }
+    
+oc_recherche_annonce:
+    path:     /recherchAn
+    defaults: { _controller: OCRechercheBundle:Recherche:annonce }
+    
+oc_recherche_annonceTr:
+    path:     /recherchAnTr
+    defaults: { _controller: OCRechercheBundle:Recherche:annonceTraitem }
+    
+oc_recherche_job:
+    path:     /recherchJob
+    defaults: { _controller: OCRechercheBundle:Recherche:job }
+    
+oc_recherche_jobTr:
+    path:     /recherchJobTr
+    defaults: { _controller: OCRechercheBundle:Recherche:jobTraitem }
+
+oc_recherche_cv:
+    path:     /recherchCv
+    defaults: { _controller: OCRechercheBundle:Recherche:cv }
+    
+oc_recherche_cvTr:
+    path:     /recherchCvTr
+    defaults: { _controller: OCRechercheBundle:Recherche:cvTraitem }
+
+oc_recherche_boutique:
+    path:     /recherchBo
+    defaults: { _controller: OCRechercheBundle:Recherche:boutique }
+    
+oc_recherche_boutiqueTr:
+    path:     /recherchBoTr
+    defaults: { _controller: OCRechercheBundle:Recherche:boutiqueTraitem }
+
+

@@ -1,0 +1,82 @@
+<div class="well">
+  {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+  {# Les erreurs générales du formulaire. #}
+  {{ form_errors(form) }}
+
+   <div class="form-group">
+    {{ form_label(form.val1, "Colis(0,01-0,99kg)", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    {{ form_errors(form.val1) }}
+    <div class="col-sm-10">
+      {{ form_widget(form.val1, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+   <div class="form-group">
+    {{ form_label(form.val2, "Colis(1-1,99kg)", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    {{ form_errors(form.val2) }}
+    <div class="col-sm-10">
+      {{ form_widget(form.val2, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+   <div class="form-group">
+    {{ form_label(form.val3, "Colis(2-2,99kg)", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    {{ form_errors(form.val3) }}
+    <div class="col-sm-10">
+      {{ form_widget(form.val3, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+   <div class="form-group">
+    {{ form_label(form.val4, "Colis(3-4,99kg)", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    {{ form_errors(form.val4) }}
+    <div class="col-sm-10">
+      {{ form_widget(form.val4, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+   <div class="form-group">
+    {{ form_label(form.val5, "Colis(5-6,99kg)", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    {{ form_errors(form.val5) }}
+    <div class="col-sm-10">
+      {{ form_widget(form.val5, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+   <div class="form-group">
+    {{ form_label(form.val6, "Colis(7-9,99kg)", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    {{ form_errors(form.val6) }}
+    <div class="col-sm-10">
+      {{ form_widget(form.val6, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+   <div class="form-group">
+    {{ form_label(form.val7, "Colis(10-14,99kg)", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    {{ form_errors(form.val7) }}
+    <div class="col-sm-10">
+      {{ form_widget(form.val7, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+  
+   <div class="form-group">
+    {{ form_label(form.val8, "Colis(15-30kg)", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    {{ form_errors(form.val8) }}
+    <div class="col-sm-10">
+      {{ form_widget(form.val8, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+    
+  {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+  {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+  {# Génération automatique des champs pas encore écrits.
+     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+     et tous les champs cachés (type « hidden »). #}
+  {{ form_rest(form) }}
+
+  {# Fermeture de la balise <form> du formulaire HTML #}
+  {{ form_end(form) }}</br>
+  <p>Pour les achâts de plus de 30Kg par vendeur le client sera redirigé vers la page de contact de l'administration</p>
+</div>

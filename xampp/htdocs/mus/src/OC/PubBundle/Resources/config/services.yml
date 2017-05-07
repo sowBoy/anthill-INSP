@@ -1,0 +1,4 @@
+services:
+#    oc_pub.example:
+#        class: OC\PubBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

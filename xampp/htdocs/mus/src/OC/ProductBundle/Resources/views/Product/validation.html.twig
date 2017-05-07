@@ -1,0 +1,104 @@
+{% extends "OCBoutiqueBundle::layout.html.twig" %}
+
+{% block body %}
+
+ <div class="row">
+  <h2>Valider mon panier</h2>
+  
+            <table class="table table-striped table-hover">
+                <thead style="margin-right:40px">
+                    <tr>
+                        <th>Références</th>
+						<th>Vendeur</th>
+                        <th>Quantité</th>
+                        <th>Prix</th>
+                        <th>Total HT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produit in thisCommande.commande.produit %}
+                    <tr>
+                        <td>{{ produit.reference }}</td>
+						 <td>{{ produit.vendeur }}</td>
+                        <td>
+                            {{ produit.quantite }}
+                        </td>
+                        <td>{{ produit.prixHT }} €</td>
+                        <td>{{ produit.prixHT * produit.quantite }} €</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+          
+            <dl class="dl-horizontal pull-right">
+                <dt>Total HT :</dt><dd>{{ thisCommande.commande.prixHT }} €</dd>
+                
+                {% for tva in tvas %}
+                    <dt>TVA {{ tva.caseRef }}% :</dt><dd>{{ tva.caseValue }} €</dd>
+                {% endfor %}
+				
+				
+                <dt>Total TTC :</dt><dd>{{ thisCommande.commande.prixTTC }} €</dd>
+                <dt>Frais de livraison :</dt><dd>{{ thisCommande.totTarif }} €</dd>
+				<dt>Total à payer :</dt><dd>{{ thisCommande.totalGlob }} €</dd>
+            </dl>
+			
+			
+			</div>
+			<div class="row">
+			<form action="{{ path('oc_commandes_validation', { 'id' : thisCommande.id }) }}" method="POST"/>
+                <input name="token" type="hidden" value="{{ thisCommande.commande.token }}" />
+                <input name="prix" type="hidden" value="{{ thisCommande.totalGlob }}" />
+                <input name="date" type="hidden" value="{{ thisCommande.date|date('dmyhms') }}" />
+                <button type="submit" class="btn btn-success pull-right" style ="margin-bottom:10px">Payer</button>
+            </form>
+            
+            <a href="{{ path('oc_product_livraison') }}" class="btn btn-primary" style ="margin-bottom:10px">retour</a>
+			</div>
+    <div class="row">			
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Vos Adresses</h3>
+					
+				</div>
+				<div class="panel-body"><div class="span3 pull-left">
+                <dl class="pull-left">
+                    <dt><h4>Adresse de livraison</h4></dt>
+                    <dt>{{ thisCommande.commande.livraison.prenom }} {{ thisCommande.commande.livraison.nom }}</dt>
+                    <dt>{{ thisCommande.commande.livraison.adresse }}</dt>
+                    <dt>{{ thisCommande.commande.livraison.cp }}</dt>
+                </dl>
+            </div>
+            
+            <div class="span3 pull-left">
+                <dl class="pull-left">
+                    <dt><h4>Adresse de facturation</h4></dt>
+                    <dt>{{ thisCommande.commande.facturation.prenom }} {{ thisCommande.commande.facturation.nom }}</dt>
+                    <dt>{{ thisCommande.commande.facturation.adresse }}</dt>
+                    <dt>{{ thisCommande.commande.facturation.cp }}</dt>
+                </dl>
+            </div></div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Details livraison</h3>
+					
+				</div>
+				<div class="panel-body"><h3>Details des frais de livraison</h3>
+					{% for ParVendeur in ParVendeurs %}
+                   {{ ParVendeur.caseTar }} au compte {{ ParVendeur.nameShop }}
+					{% endfor %}</div>
+		</div>
+		
+	</div>
+	
+	</div>
+	
+	
+
+     
+
+{% endblock %}

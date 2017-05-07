@@ -1,0 +1,63 @@
+oc_pub_homepage:
+    path:     /
+    defaults: { _controller: OCPubBundle:Default:index }
+          
+oc_pub_checkin:
+    path:      /checkin
+    defaults:
+        _controller: OCPubBundle:Pub:checkin
+        
+oc_pub_validationHori:
+    path:      /preBanniHori/{id}
+    defaults:
+        _controller: OCPubBundle:Pub:validationHori
+    requirements:
+        id: \d+   
+        
+oc_pub_validationLarge:
+    path:      /preBanniLarge/{id}
+    defaults:
+        _controller: OCPubBundle:Pub:validationLarge
+    requirements:
+        id: \d+   
+
+oc_pub_declinerHori:
+    path:      /declinerHori/{id}
+    defaults:
+        _controller: OCPubBundle:Pub:declinerHori
+    requirements:
+        id: \d+ 
+        
+oc_pub_declinerLarge:
+    path:      /declinerLarge/{id}
+    defaults:
+        _controller: OCPubBundle:Pub:declinerLarge
+    requirements:
+        id: \d+ 
+
+oc_pub_validHori:
+    path:      /validHori/{id}
+    defaults:
+        _controller: OCPubBundle:Pub:validHori
+    requirements:
+        id: \d+   
+
+oc_pub_validLarge:
+    path:      /validLarge/{id}
+    defaults:
+        _controller: OCPubBundle:Pub:validLarge
+    requirements:
+        id: \d+                
+            
+oc_pub_addHori:
+    path:      /addHori
+    defaults:
+        _controller: OCPubBundle:Pub:addHori
+        
+oc_pub_addLarge:
+    path:      /addLarge
+    defaults:
+        _controller: OCPubBundle:Pub:addLarge
+
+
+

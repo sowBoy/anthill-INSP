@@ -1,0 +1,58 @@
+oc_product_homepage:
+    path:     /
+    defaults: { _controller: OCProductBundle:Default:index }
+
+oc_product_view:
+    path:      /produit/{id}
+    defaults:
+        _controller: OCProductBundle:Product:view
+    requirements:
+        id: \d+
+
+oc_product_ajouter:
+    path:      /ajouter/{id}
+    defaults:
+        _controller: OCProductBundle:Panier:ajouter
+    requirements:
+        id: \d+
+
+oc_product_panier:
+    path:      /panier
+    defaults:
+        _controller: OCProductBundle:Panier:panier
+
+oc_product_delete:
+    path:      /delete/{id}
+    defaults:
+        _controller: OCProductBundle:Panier:delete
+    requirements:
+        id: \d+
+        
+oc_product_supAdress:
+    path:      /supAdress/{id}
+    defaults:
+        _controller: OCProductBundle:Panier:supAdress
+    requirements:
+        id: \d+
+        
+oc_product_supprimer:
+    path:      /supprimer/{id}
+    defaults:
+        _controller: OCProductBundle:Panier:supprimer
+    requirements:
+        id: \d+
+        
+oc_product_livraison:
+    path:      /livraison
+    defaults:
+        _controller: OCProductBundle:Panier:livraison
+        
+oc_product_clarification:
+    path:      /clarification
+    defaults:
+        _controller: OCProductBundle:Panier:clarification
+        
+oc_product_validation:
+    path:      /validation
+    defaults:
+        _controller: OCProductBundle:Panier:validation

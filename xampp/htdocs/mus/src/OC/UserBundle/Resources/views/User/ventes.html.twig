@@ -1,0 +1,75 @@
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block body %}
+
+  <div class="span3">  
+           
+			
+            </div>				
+            <div class="span9">
+                
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+                {% for flashMessage in app.session.flashbag.get('error') %}
+                    <div class="alert alert-errors">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+                
+                <h2>Ventes</h2>
+                <form>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>TOTAL VENTES</th>
+                                <th>FRAIS DE LIVRAISON</th>
+                                <th>TOTAL GLOBAL</th>
+								<th>LES ADRESSES</th>
+								<th>LES PRODUITS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if mesVents|length == 0 %}
+                                <tr>
+                                    <td colspan="4"><center>Vous n'avez aucune vente pour le moment.</center></td>
+                                </tr>
+                           {% else %}
+                            {% for mesVent in mesVents %}
+                            <tr>
+                                <td>{{ mesVent.caseMonney }} €</td>
+                                <td>{{ mesVent.caseTar }} €</td>
+                                <td>{{ mesVent.totMonney }} €</td>
+								<td><h5>Adresse de livraison :</h5>
+								{{ mesVent.livraison.prenom }} {{ mesVent.livraison.nom }}
+								{{ mesVent.livraison.adresse }} {{ mesVent.livraison.cp }}
+								<h5>Adresse de Facturation :</h5>
+								{{ mesVent.facturation.prenom }} {{ mesVent.facturation.nom }}
+								{{ mesVent.facturation.adresse }} {{ mesVent.facturation.cp }}</td>
+								
+								
+								<td>{% for element in mesVent.tableau %}
+                          
+								<h5>Nom du produit:</h5>{{ element.caseName }}
+								<h5>Quantité :</h5>{{ element.caseQte }}
+								{% if element.taille is not empty %}
+								<h5>Taille :</h5>{{ element.taille }}
+								 {% endif %}
+								 {% if element.couleur is not empty %}
+								<h5>Couleur :</h5> <button type="button" class="btn" style="background-color:{{ element.couleur }}"></button>
+								 {% endif %}</td>
+								{% endfor %}
+								 </tr>
+								{% endfor %}
+                           
+                             {% endif %}
+                        </tbody>
+                    </table>
+                </form>
+
+            </div>
+
+
+{% endblock %}

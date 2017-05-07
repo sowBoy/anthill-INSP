@@ -1,0 +1,10 @@
+oc_commandes_homepage:
+    path:     /
+    defaults: { _controller: OCCommandesBundle:Default:index }
+       
+oc_commandes_validation:
+    path:      /api/banque/{id}
+    defaults:
+        _controller: OCCommandesBundle:Commandes:validationCommande
+    requirements:
+        id: \d+

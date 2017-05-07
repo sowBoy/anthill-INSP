@@ -1,0 +1,20 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/menu.html.twig #}
+
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+ Checkin - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+<ul class="nav nav-pills nav-stacked">
+  {% for preTheResume in listPreTheResumes %}
+    <li>
+      <a href="{{ path('oc_online_cv_validation', {'id': preTheResume.id}) }}">
+        {{ preTheResume.objet }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}
