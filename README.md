@@ -7,7 +7,7 @@ Logic would like that the profile object first be persisted and flush before the
 Go to ProfileController.php in addAction.</p>
 
 <p>
-You can download the project and access the form localhost / anthill-insp / web / app_dev.php / add
+You can download the project and access the form <a href="">localhost / anthill-insp / web / app_dev.php / add</a>
 
 Of course do not forget the doctrine database create and update force</p>
 
