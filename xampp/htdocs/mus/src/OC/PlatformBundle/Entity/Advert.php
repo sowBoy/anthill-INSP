@@ -51,8 +51,12 @@ class Advert
    * @var string
    *
    * @ORM\Column(name="content", type="text")
-   * @Assert\NotBlank()
-   * @Antiflood()
+   * @Assert\Length(
+   *      min = 250,
+   *      max = 3000,
+   *      minMessage = "Le text est trop court",
+   *      maxMessage = "Le text est trop long"
+   * )
    */
   private $content;
 
@@ -105,6 +109,12 @@ class Advert
      * @var string
      *
      * @ORM\Column(name="entreprise", type="text")
+	 * @Assert\Length(
+     *      min = 250,
+     *      max = 3000,
+     *      minMessage = "Le text est trop court",
+     *      maxMessage = "Le text est trop long"
+     * )
      */
     private $entreprise;
 	
@@ -112,6 +122,12 @@ class Advert
      * @var string
      *
      * @ORM\Column(name="profile", type="text")
+	 * @Assert\Length(
+     *      min = 250,
+     *      max = 3000,
+     *      minMessage = "Le text est trop court",
+     *      maxMessage = "Le text est trop long"
+     * )
      */
     private $profile;
 	

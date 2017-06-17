@@ -20,6 +20,13 @@ class PoidsTarif
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+	
+	/**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
 
     /**
      * @var float
@@ -41,6 +48,11 @@ class PoidsTarif
      * @ORM\Column(name="caseMonney", type="float")
      */
     private $caseMonney;
+	
+	/**
+     * @ORM\Column(name="valid", type="boolean")
+     */
+    private $valid = false;
 	
 	/**
      * @var float
@@ -340,5 +352,53 @@ class PoidsTarif
     public function getFacturation()
     {
         return $this->facturation;
+    }
+
+    /**
+     * Set valid
+     *
+     * @param boolean $valid
+     *
+     * @return PoidsTarif
+     */
+    public function setValid($valid)
+    {
+        $this->valid = $valid;
+
+        return $this;
+    }
+
+    /**
+     * Get valid
+     *
+     * @return boolean
+     */
+    public function getValid()
+    {
+        return $this->valid;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return PoidsTarif
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

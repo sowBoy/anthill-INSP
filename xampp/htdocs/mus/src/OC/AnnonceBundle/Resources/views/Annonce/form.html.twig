@@ -76,12 +76,93 @@
       {{ form_widget(form.website) }}
     </div>
   </div>
+  
+  <div class="form-group">
+    {{ form_label(form.phone, "Téléphone(optionnel et public)", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    {{ form_errors(form.phone) }}
+     <div class="col-sm-10" style="margin-left:0.5px">
+      {{ form_widget(form.phone) }}
+    </div>
+  </div>
     
   {% if form.published is defined %}
     {{ form_row(form.published) }}
   {% endif %}
 
   {{ form_row(form.image) }}
+  
+  {% if form.galeries is defined %}
+  <div class="well">
+  {{ form_row(form.galeries) }}
+  <p>Attention:seul 4 images de galerie seront affichées.</p>
+  <a href="#" id="add_galeries" class="btn btn-default">Ajout image galerie</a>
+  </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    
+    var $container = $('div#oc_annoncebundle_annonce_galeries');
+    
+    var index = $container.find(':input').length;
+    
+    $('#add_galeries').click(function(e) {
+      addGaleries($container);
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+    if (index == 0) {
+      addGaleries($container);
+    } else {
+     
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    }
+  
+
+    function addGaleries($container) {
+
+      var template = $container.attr('data-prototype')
+
+        .replace(/__name__label__/g, 'Image n°' + (index+1))
+
+        .replace(/__name__/g,        index)
+
+      ;
+
+      var $prototype = $(template);
+
+      addDeleteLink($prototype);
+
+      $container.append($prototype);
+
+      index++;
+
+    }
+
+    function addDeleteLink($prototype) {
+
+      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+
+      $prototype.append($deleteLink)
+
+      $deleteLink.click(function(e) {
+
+        $prototype.remove();
+
+        e.preventDefault(); 
+
+        return false;
+
+      });
+
+    }
+
+  });
+
+</script>
+ {% endif %}
 
   {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
   {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}

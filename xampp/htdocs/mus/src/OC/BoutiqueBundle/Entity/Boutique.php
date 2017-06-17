@@ -41,6 +41,12 @@ class Boutique
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+	 * @Assert\Length(
+     *      min = 250,
+     *      max = 2500,
+     *      minMessage = "Le text est trop court",
+     *      maxMessage = "Le text est trop long"
+     * )
      */
     private $description;
 
@@ -62,6 +68,11 @@ class Boutique
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
+	
+	/**
+     * @ORM\Column(name="valid", type="boolean")
+     */
+    private $valid = true;
 	
 	
     /**
@@ -211,5 +222,29 @@ class Boutique
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set valid
+     *
+     * @param boolean $valid
+     *
+     * @return Boutique
+     */
+    public function setValid($valid)
+    {
+        $this->valid = $valid;
+
+        return $this;
+    }
+
+    /**
+     * Get valid
+     *
+     * @return boolean
+     */
+    public function getValid()
+    {
+        return $this->valid;
     }
 }

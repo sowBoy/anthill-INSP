@@ -3,6 +3,7 @@
 namespace OC\BoutiqueBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Demande
@@ -32,6 +33,12 @@ class Demande
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+	 * @Assert\Length(
+     *      min = 250,
+     *      max = 3000,
+     *      minMessage = "Le text est trop court",
+     *      maxMessage = "Le text est trop long"
+     * )
      */
     private $description;
 	

@@ -41,6 +41,12 @@ class Product
      * @var string
      *
      * @ORM\Column(name="descriptif", type="text")
+	 * @Assert\Length(
+     *      min = 250,
+     *      max = 3000,
+     *      minMessage = "Le text est trop court",
+     *      maxMessage = "Le text est trop long"
+     * )
      */
     private $descriptif;
 
@@ -81,6 +87,12 @@ class Product
      * @var string
      *
      * @ORM\Column(name="poids", type="float", length=25)
+	 * @Assert\Range(
+     *      min = 0.02,
+     *      max = 5,
+     *      minMessage = "Valeur trop petite",
+     *      maxMessage = "Valeur trop grande"
+     * )
      */
     private $poids;
 	

@@ -32,12 +32,14 @@ class AnnexeRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getScalarResult();
     }
 	
-	public function getNameP($thisId)
+	public function getNameP($thisId, $command)
     {
         $qb = $this->createQueryBuilder('a')
 				->select('a.caseName, a.caseQte, a.taille, a.couleur')
                 ->where('a.caseIdB = :caseIdB')
-                ->setParameter('caseIdB', $thisId);
+                ->setParameter('caseIdB', $thisId)
+				 ->andWhere('a.commande = :commande')
+                ->setParameter('commande', $command);
         
         return $qb->getQuery()->getScalarResult();
     }

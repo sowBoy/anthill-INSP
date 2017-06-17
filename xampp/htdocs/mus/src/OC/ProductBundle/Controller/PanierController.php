@@ -76,12 +76,60 @@ class PanierController extends Controller
         $session->set('panier',$panier);
         
         
+        return $this->redirect($this->generateUrl('oc_boutique_menu'));
+		}else{
+			 return $this->redirectToRoute('oc_product_view', array('id' => $thisProduct->getId()));
+		}
+    }
+	
+	public function qteProduitAction(Request $request)
+    {
+        
+		$session = $request->getSession();
+        if (!$session->has('panier')) $session->set('panier', array());
+        
+        $em = $this->getDoctrine()->getManager();
+        $produits = $em->getRepository('OCProductBundle:Product')->findArray(array_keys($session->get('panier')));
+        
+        return $this->render('OCProductBundle:Product:qteProduit.html.twig', array('produits' => $produits,
+                                                                                             'panier' => $session->get('panier')));
+                                                                                             
+		
+    }
+    
+	 public function rajoutAction($id, Request $request)
+    {
+        
+		
+		$em = $this->getDoctrine()->getManager();
+        $thisProduct = $em->getRepository('OCProductBundle:Product')->find($id);
+		$qte = $request->query->get('qte');
+		if($qte != null){
+		$session = $request->getSession();
+        
+        if (!$session->has('panier')) $session->set('panier',array());
+        $panier = $session->get('panier');
+        
+        if (array_key_exists($id, $panier)) {
+            if ($request->query->get('qte') != null) $panier[$id] = $request->query->get('qte');
+            $this->get('session')->getFlashBag()->add('success','Quantité modifié avec succès');
+        } else {
+            if ($request->query->get('qte') != null)
+                $panier[$id] = $request->query->get('qte');
+            else
+                $panier[$id] = 1;
+            
+            $this->get('session')->getFlashBag()->add('success','Article ajouté avec succès');
+        }
+            
+        $session->set('panier',$panier);
+        
+        
         return $this->redirect($this->generateUrl('oc_product_panier'));
 		}else{
 			 return $this->redirectToRoute('oc_product_view', array('id' => $thisProduct->getId()));
 		}
     }
-    
     public function panierAction(Request $request)
     {
         $session = $request->getSession();
@@ -184,13 +232,15 @@ class PanierController extends Controller
                                     'nom' => $livraison->getNom(),
                                     'telephone' => $livraison->getTelephone(),
                                     'adresse' => $livraison->getAdresse(),
-                                    'cp' => $livraison->getCp());
+                                    'cp' => $livraison->getCp(),
+									'ville' => $facturation->getVille());
                              
        $commande['facturation'] = array('prenom' => $facturation->getPrenom(),
                                     'nom' => $facturation->getNom(),
                                     'telephone' => $facturation->getTelephone(),
                                     'adresse' => $facturation->getAdresse(),
-                                    'cp' => $facturation->getCp());
+                                    'cp' => $facturation->getCp(),
+									'ville' => $facturation->getVille());
                                    
         $commande['prixHT'] = round($totalHT,2);
         $commande['prixTTC'] = round($totalTTC,2);
@@ -299,7 +349,7 @@ class PanierController extends Controller
 			 foreach($calculTvas as $calculTva){	
                        $mesTva = new CalculTva();
 					   $mesTva->setCaseRef($calculTva['caseTva']);
-					   $mesTva->setCaseValue($calculTva['totalTva']);	
+					   $mesTva->setCaseValue(round($calculTva['totalTva'], 2));	
 					   $mesTva->setCommande($myCommande);
 					   $em->persist($mesTva);
 		   }
@@ -309,14 +359,15 @@ class PanierController extends Controller
 			$poidsTarifs = new PoidsTarif();
 			
 			$thisBoutt = $em->getRepository('OCBoutiqueBundle:Boutique')->find($calculP['caseIdB']);
-			$leDitP = $em->getRepository('OCCommandesBundle:Annexe')->getNameP($calculP['caseIdB']);
+			$leDitP = $em->getRepository('OCCommandesBundle:Annexe')->getNameP($calculP['caseIdB'], $myCommande);
 		    $poidsTarifs->setCommande($myCommande);
 			
 		    $poidsTarifs->setCaseP($calculP['totalP']);
-			$poidsTarifs->setCaseMonney($calculP['totalMo']);
+			$poidsTarifs->setCaseMonney(round($calculP['totalMo'], 2));
 			$poidsTarifs->setLivraison($content['livraison']);
 			$poidsTarifs->setFacturation($content['facturation']);
 			$poidsTarifs->setNameShop($thisBoutt->getName());
+			$poidsTarifs->setDate(new \DateTime());
 			
 			$poidsTarifs->setTableau($leDitP);
 			
@@ -324,30 +375,30 @@ class PanierController extends Controller
 			
 		    if($calculP['totalP'] > 0.01 && $calculP['totalP'] <= 0.99 ){
 		    $poidsTarifs->setCaseTar($tarificati->getVal1());
-			$poidsTarifs->setTotMonney(($calculP['totalMo'])+($tarificati->getVal1()));
+			$poidsTarifs->setTotMonney(round(($calculP['totalMo']+ $tarificati->getVal1()), 2));
 		   }elseif($calculP['totalP'] > 0.99 && $calculP['totalP'] <= 1.99 ){
 		    $poidsTarifs->setCaseTar($tarificati->getVal2());
-			$poidsTarifs->setTotMonney(($calculP['totalMo'])+($tarificati->getVal2()));
+			$poidsTarifs->setTotMonney(round(($calculP['totalMo']+ $tarificati->getVal2()), 2));
 		   }elseif($calculP['totalP'] > 1.99 && $calculP['totalP'] <= 2.99 ){
 		    $poidsTarifs->setCaseTar($tarificati->getVal3());
-			$poidsTarifs->setTotMonney(($calculP['totalMo'])+($tarificati->getVal3()));
+			$poidsTarifs->setTotMonney(round(($calculP['totalMo']+ $tarificati->getVal3()), 2));
 		   }elseif($calculP['totalP'] > 2.99 && $calculP['totalP'] <= 4.99 ){
 		    $poidsTarifs->setCaseTar($tarificati->getVal4());
-			$poidsTarifs->setTotMonney(($calculP['totalMo'])+($tarificati->getVal4()));
+			$poidsTarifs->setTotMonney(round(($calculP['totalMo']+ $tarificati->getVal4()), 2));
 		   }elseif($calculP['totalP'] > 4.99 && $calculP['totalP'] <= 6.99 ){
 		    $poidsTarifs->setCaseTar($tarificati->getVal5());
-			$poidsTarifs->setTotMonney(($calculP['totalMo'])+($tarificati->getVal5()));
+			$poidsTarifs->setTotMonney(round(($calculP['totalMo']+ $tarificati->getVal5()), 2));
 		   }elseif($calculP['totalP'] > 6.99 && $calculP['totalP'] <= 9.99 ){
 		    $poidsTarifs->setCaseTar($tarificati->getVal6());
-			$poidsTarifs->setTotMonney(($calculP['totalMo'])+($tarificati->getVal6()));
+			$poidsTarifs->setTotMonney(round(($calculP['totalMo']+ $tarificati->getVal6()), 2));
 		
 		   }elseif($calculP['totalP'] > 9.99 && $calculP['totalP'] <= 14.99 ){
 		    $poidsTarifs->setCaseTar($tarificati->getVal7());
-			$poidsTarifs->setTotMonney(($calculP['totalMo'])+($tarificati->getVal7()));
+			$poidsTarifs->setTotMonney(round(($calculP['totalMo']+ $tarificati->getVal7()), 2));
 			
 		   }elseif($calculP['totalP'] > 14.99 && $calculP['totalP'] <= 30 ){
 		    $poidsTarifs->setCaseTar($tarificati->getVal8());
-			$poidsTarifs->setTotMonney(($calculP['totalMo'])+($tarificati->getVal8()));
+			$poidsTarifs->setTotMonney(round(($calculP['totalMo']+ $tarificati->getVal8()), 2));
 			
 		   }else{
 			  return $this->redirect($this->generateUrl('oc_product_clarification'));
@@ -364,10 +415,10 @@ class PanierController extends Controller
 		$calculTarifs = $em->getRepository('OCCommandesBundle:PoidsTarif')->sommationTarif($clapCommande);
 		$ceContenu = $clapCommande->getCommande();
 		foreach($calculTarifs as $calculTarif){
-		$clapCommande->setTotTarif($calculTarif['totalTarif']);
+		$clapCommande->setTotTarif(round($calculTarif['totalTarif'], 2));
 		$calc=$calculTarif['totalTarif']+$ceContenu['prixTTC'];
 		
-		$clapCommande->setTotalGlob($calc);
+		$clapCommande->setTotalGlob(round($calc, 2));
 		}
 		$em->flush();
 		$thisCommande = $em->getRepository('OCCommandesBundle:Commandes')->find($commande->getContent());

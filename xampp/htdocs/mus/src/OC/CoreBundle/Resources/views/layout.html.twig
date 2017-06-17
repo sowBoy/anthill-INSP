@@ -1,180 +1,294 @@
-{# src/OC/CoreBundle/Resources/views/layout.html.twig #}
-
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+
+<head>
+
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <title>{% block title %}EntreMus{% endblock %}</title>
+   <title>{% block title %}EntreMus{% endblock %}</title>
 
-    {% block stylesheets %}
-      {# On charge le CSS de bootstrap depuis le site directement #}
-      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	{% block stylesheets %}
 
-      {% stylesheets filter="cssrewrite, ?scssphp"
-        'bundles/ocplatform/css/main.css'
-        'bundles/ocplatform/css/platform.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-      {% endstylesheets %}
-    {% endblock %}
-      
- <div class="container">
+            {% stylesheets 
+                '@OCCoreBundle/Resources/public/css/*'
+            filter='cssrewrite' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+			
+        {% endblock %}
 
-      <header class="row col-sm-12" >
+</head>
 
-        <div class="page-header">
-		
+<body>
+<style>
 
-<div class="panel-heading" style="background-color:#441356" >
- <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">EntreMus</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="{{ path('oc_platform_home') }}"><span class="glyphicon glyphicon-home"> Accueil</span></a></li>
-      {% if is_granted('ROLE_ADMIN') %}
-	  <li><div class="dropdown">
-			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" 
-style="width:97px"> Admin
-			  <span class="caret"></span></button>
-			  <ul class="dropdown-menu">
-				<li><a href="{{ path('oc_platform_checkin') }}">Gestion des offres d'emploi</a></li>
-				<li><a href="{{ path('oc_annonce_checkin') }}">Gestion des annonces</a></li>
-				<li><a href="{{ path('oc_pub_checkin') }}">Gestion des bannières</a></li>
-				<li><a href="{{ path('oc_boutique_lesDemandes') }}">Gestion vendeurs</a></li>
-				<li><a href="{{ path('oc_online_cv_checkin') }}">Gestion CV</a></li>
-				<li><a href="{{ path('oc_tarification_ajout') }}">Ajout Tarification</a></li>
-				<li><a href="{{ path('oc_tarification_look') }}">Les Tarifs</a></li>
-				<li><a href="{{ path('oc_user_roles') }}">Ajouter un admin</a></li>
-				
-			  </ul>
-			</div></li>
-			{% endif %}
-      <li><div class="dropdown">
-			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="width:97px"> Shoping
-			  <span class="caret"></span></button>
-			  <ul class="dropdown-menu">
+.navbar-custom {
+    background-color:#441356;
+    color:#ffffff;
+    border-radius:0;
+	
+}
+
+.navbar-custom .navbar-nav > li > a {
+    color:#fff;
+}
+
+.navbar-custom .navbar-nav > .active > a {
+    color: #ffffff;
+    background-color:transparent;
+}
+
+.navbar-custom .navbar-nav > li > a:hover,
+.navbar-custom .navbar-nav > li > a:focus,
+.navbar-custom .navbar-nav > .active > a:hover,
+.navbar-custom .navbar-nav > .active > a:focus,
+.navbar-custom .navbar-nav > .open >a {
+    text-decoration: none;
+    background-color: #441356;
+}
+
+.navbar-custom .navbar-brand {
+    color:#eeeeee;
+}
+.navbar-custom .navbar-toggle {
+    background-color:#eeeeee;
+}
+.navbar-custom .icon-bar {
+    background-color:#33aa33;
+}
+/* for dropdowns only */
+.navbar-custom .navbar-nav .dropdown-menu  { 
+  background-color: #33aa33;
+}
+.navbar-custom .navbar-nav .dropdown-menu>li>a  { 
+  color: #fff;
+}
+.navbar-custom .navbar-nav .dropdown-menu>li>a:hover,.navbar-custom .navbar-nav .dropdown-menu>li>a:focus  { 
+  color: #33aa33;
+}
+
+/* cookie eu */
+div.cookie_policy_msg{width:100%;background:#111;}
+div.cookie_policy_msg>div{max-width:1200px;margin:0 auto;color:#999;padding:10px}
+div.cookie_policy_msg>div>a:first-child{color:#fff;display:inline-block;margin-left:10px}
+div.cookie_policy_msg>div>a:last-child{display:inline-block;margin-left:20px;height:28px;width:32px;color:#fff}
+</style>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top">
+        <div class="container" >
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" >
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" style="color:white">EntreMus</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+       <li><a href="{{ path('oc_platform_home') }}" style="color:white"><span class="glyphicon glyphicon-home"> Accueil</span></a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white">Shoping <b class="caret"></b></a>
+        <ul class="dropdown-menu">
 				<li><a href="{{ path('oc_boutique_menu') }}">Boutiques</a></li>
 				<li><a href="{{ path('oc_boutique_demander') }}">Devenir vendeur</a></li>
 			  </ul>
-			</div></li>
-	  <li><div class="dropdown">
-			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="width:97px"> Annonces
-			  <span class="caret"></span></button>
-			  <ul class="dropdown-menu">
-				<li><a href="{{ path('oc_annonce_look') }}">Les annonces</a></li>
-				<li><a href="{{ path('oc_annonce_add') }}">Ajouter une annonce</a></li>
-			  </ul>
-			</div></li>
-	  <li><div class="dropdown">
-			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="width:97px"> Job
-			  <span class="caret"></span></button>
-			  <ul class="dropdown-menu">
+      </li>
+	  <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white">Jobs <b class="caret"></b></a>
+        <ul class="dropdown-menu">
 			    <li><a href="{{ path('oc_platform_look') }}">Les offres</a></li>
 				<li><a href="{{ path('oc_online_cv_menu') }}">Les CV en ligne</a></li>
 				<li><a href="{{ path('oc_platform_add') }}">Deposer une offre</a></li>
 				<li><a href="{{ path('oc_online_cv_add') }}">Deposer un CV</a></li>
 			  </ul>
-			  </div></li>
-			  <li><div class="dropdown">
-			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> Poser une bannière
-			  <span class="caret"></span></button>
-			  <ul class="dropdown-menu">
+      </li>
+	  <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white">Annonces <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+			   <li><a href="{{ path('oc_annonce_look') }}">Les annonces</a></li>
+				<li><a href="{{ path('oc_annonce_add') }}">Ajouter une annonce</a></li>
+			  </ul>
+      </li>
+	  {% if is_granted('ROLE_ADMIN') %}
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white">Admin <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+				<li><a href="{{ path('oc_platform_checkin') }}">Gestion des offres d'emploi</a></li>
+				<li><a href="{{ path('oc_commandes_lesCommandes') }}">Les Commandes</a></li>
+				<li><a href="{{ path('oc_annonce_checkin') }}">Gestion des annonces</a></li>
+				<li><a href="{{ path('oc_pub_checkin') }}">Gestion des bannières</a></li>
+				<li><a href="{{ path('oc_boutique_lesDemandes') }}">Gestion vendeurs</a></li>
+				<li><a href="{{ path('oc_online_cv_checkin') }}">Gestion CV</a></li>
+				<li><a href="{{ path('oc_tarification_ajout') }}">Ajout Tarification</a></li>
+				<li><a href="{{ path('oc_user_utilisation') }}">Ajout C utilisation</a></li>
+				<li><a href="{{ path('oc_user_lookin') }}">Condition d'utilisation</a></li>
+				<li><a href="{{ path('oc_tarification_look') }}">Les Tarifs</a></li>
+				<li><a href="{{ path('oc_user_roles') }}">Ajouter un Admin</a></li>
+				
+				
+				
+			  </ul>
+      </li>
+	  {% endif %}
+    </ul>
+    
+    <ul class="nav navbar-nav navbar-right">
+      
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white">Poser une bannière <b class="caret"></b></a>
+        <ul class="dropdown-menu">
 				<li><a href="{{ path('oc_pub_addHori') }}">Bannière horizontale  </a></li>
 				<li><a href="{{ path('oc_pub_addLarge') }}">Bannière rectangulaire</a></li>
 			  </ul>
-			</div></li>
-			
-			<li class="active"><a href="{{ path('oc_annonce_contact') }}"><span class="glyphicon glyphicon-envelope"> Contact</span></a></li>
+      </li>
+	  <li><a href="{{ path('oc_annonce_contact') }}" style="color:white"><span class="glyphicon glyphicon-envelope"> Contact</span></a></li>
     </ul>
-   
-  </div>
-</nav>
-       
-</div>
- 
-{{ render(controller("OCPubBundle:Pub:banniHori")) }}
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 
-      </header>
+    <!-- Page Content -->
+	
+    <div class="container" >
 
-      <div class="row col-sm-12">
+        <div class="row" >
 
-        <nav class="col-sm-2">          
-
-          <ul class="nav nav-pills nav-stacked">
-		 
-           
-		  </ul>
-            
-       
-		
-
-        <h3>Utilisateur</h3>
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-          Connecté en tant que {{ app.user.username }}
-          <br>
+            <div class="col-md-3" style="background-color:#441356">
+                <p class="lead" style="color:white">Espace Utilisateur</p>
+                <div class="list-group">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+          <p style="color:white">Connecté en tant que {{ app.user.username }}</p>
 		  <ul>
-		  <li><a href="{{ path('oc_user_facture') }}">Commandes</a></li>
-          
+		  <li><a href="{{ path('oc_user_facture') }}" style="color:white">Commandes</a></li>
+		  <li><a href="{{ path('oc_user_depot') }}" style="color:white">Mon depot</a></li>
 		 {% if is_granted('ROLE_SELLER') %}
-		 <li><a href="{{ path('oc_user_ventes') }}">Mes Ventes</a></li>
-		  <li><a href="{{ path('oc_user_shop') }}">Ma boutique</a></li>
+		 <li><a href="{{ path('oc_user_ventes') }}" style="color:white">Mes Ventes</a></li>
+		  <li><a href="{{ path('oc_user_shop') }}" style="color:white">Ma boutique</a></li>
 		 {% endif %}
 		  </ul>
-		  <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+		  <a href="{{ path('fos_user_security_logout') }}" style="color:white">Déconnexion</a>
         {% else %}
-          <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+          <a href="{{ path('fos_user_security_login') }}" style="color:white">Connexion</a>
+		  
         {% endif %}
-        </nav>
+                </div>
+            </div>
 
-        <section class="col-sm-10">
+            <div class="col-md-9">
+<a href="{{ path('oc_product_panier') }}" class="btn btn-success">
+		
+		{{ render(controller("OCProductBundle:Panier:qteProduit")) }}<span" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
+                <div class="thumbnail" style="border-color:white">
+                   {{ render(controller("OCPubBundle:Pub:banniHori")) }}
 
-          <div class="panel panel-default">
-
-           
-  
- </div>
-</head>
- 
-
- 
-
-			 
+                    
+                </div>
+				
 {% block body %}
-            <div class="panel-body">
-
-              
-              
-              
+<div class="row">
+  </div>               
+{% endblock %}
 
             </div>
 
-          </div>
+        </div>
 
-        </section>
+    </div>
+    <!-- /.container -->
 
-      </div>
-{% endblock %}
+    <div class="container">
 
+        
 
-       <footer class="row col-sm-12">
-
-        <div class="panel-footer" style="background-color:#787272">
-
-
-       </div>
-
-      </footer>
-
+        
+		
+<footer class="navbar-default>
+  <div class="container-fluid" style="background-color:#787272; margin-bottom:2px"></br>
+    <strong>Copyright &copy; 2017 <a href="">EntreMus</a>.</strong> All rights reserved. Développé sous symfony par  <strong><a href="#">Anthill<small style ="text-decoration: overline">Inspire</small></a></strong>
+			
   </div>
- 
-  {% block javascripts %}
+</footer>
+
+    </div>
+    <!-- /.container -->
+
+    {% block javascripts %}
     {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script>
+/**
+ * Afficher l'avertissement sur l'utilisation des cookies
+ * http://www.fobec.com/tuto/1172/afficher-avertissement-sur-utilisation-cookies.html
+ * @author Fobec septembre 2015
+ */
+var Cookie_Eu = {
+    //Ecrire un cookie contenant la date d'acceptation
+    write: function(d) {
+        var buf = '';
+        if (d) {
+            var date = new Date();
+            date.setTime(date.getTime() + (d * 24 * 60 * 60 * 1000));
+            buf = "cookie_policy_validation=agree; expires=" + date.toGMTString() + "; domain=" + document.domain + ";";
+            document.cookie = buf;
+ 
+            var div = document.getElementById('cookie_policy_msg');
+            if (div) {
+                div.parentNode.removeChild(div);
+            }
+        }
+    },
+    //Cherche le cookie contenant la date d'acceptation
+    isSet: function()
+    {
+        var nameEQ = "cookie_policy_validation=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ')
+                c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) {
+                var val = c.substring(nameEQ.length, c.length);
+                if (val.trim() === 'agree') {
+                    return true;
+                }
+            }
+        }
+        return false;
+    },
+    //Afficher le bandeau d'avertissement
+    askForAgree: function() {
+        if (this.isSet() == false) {
+            var docbody = document.body || document.getElementsByTagName('body')[0];
+ 
+            var div_cookie = document.createElement('div');
+            div_cookie.id = 'cookie_policy_msg';
+            div_cookie.className = 'cookie_policy_msg';
+            var t = "<div>En poursuivant votre navigation sur ce site, vous acceptez l’utilisation de Cookies.";
+            t += '<a href="javascript:Cookie_Eu.write(365);">OK</a></div>';
+ 
+            div_cookie.innerHTML = t;
+            docbody.insertBefore(div_cookie, docbody.childNodes[0]);
+        }
+    }
+};
+//Lancer le test d'existance du cookie
+Cookie_Eu.askForAgree();
+</script>
   {% endblock %}
 
-  </body>
+
+</body>
+
 </html>

@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -39,8 +41,20 @@ class AnnonceType extends AbstractType
 		->add('prix',     MoneyType::class, array(
             'required' => false,
       ))
-		->add('localisation',     TextType::class)
+		->add('localisation',     TextType::class, array(
+    'data' => 'Exemple:Cergy en France',
+))
+		->add('phone',   NumberType::class, array(
+            'required' => false,
+      ))
 		->add('image',      AnnonceImageType::class)
+		->add('galeries', CollectionType::class, array(
+        'entry_type'   => GalerieType::class,
+        'allow_add'    => true,
+        'allow_delete' => true,
+		'required' => false,
+
+      ))
 		->add('save',      SubmitType::class, array(
     'label' => 'Sauvegarder',
 ));

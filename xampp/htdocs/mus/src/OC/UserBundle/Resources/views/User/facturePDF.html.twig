@@ -109,11 +109,13 @@ table#total td {
         <ul id="coordonnes">
             <li>{{ facture.commande.facturation.nom }} {{ facture.commande.facturation.prenom }}</li>
             <li>{{ facture.commande.facturation.adresse}}</li>
-            <li>{{ facture.commande.facturation.cp }}</li>
+            <li>{{ facture.commande.facturation.cp }}:{{ facture.commande.facturation.ville }}</li>
+			
         </ul>
         <table id="entity">
             <tr>
                 <td width="280">DESIGNATION</td>
+				<td width="105">VENDEUR</td>
                 <td width="105">QUANTITE</td>
                 <td width="100">P.U - HT</td>
                 <td width="105">MONTANT HT</td>
@@ -122,6 +124,7 @@ table#total td {
                 {% for produit in facture.commande.produit %}
                 <tr>
                     <td class="color">{{ produit.reference }}</td>
+					<td class="color">{{ produit.vendeur }}</td>
                     <td class="color">{{ produit.quantite }}</td>
                     <td class="color">{{ produit.prixHT }} €</td>
                     <td class="color">{{ produit.prixHT * produit.quantite }} €</td>
@@ -153,6 +156,13 @@ table#total td {
                 <td width="100" class="color">{{ facture.totalGlob }} €</td>
             </tr>
         </table>
-       
+		<p>Votre commande sera livrée sous 5 jours ouvrables.</p> 
+       <h4>Les contacts des vendeurs:</h4>
+	   {% for poidsTarifs in facture.poidsTarifs %}
+								    
+                          
+								{{ poidsTarifs.nameShop }} :<p class="color">{{ poidsTarifs.emailShop }}</p>
+								
+								{% endfor %}
     </body>
 </html>

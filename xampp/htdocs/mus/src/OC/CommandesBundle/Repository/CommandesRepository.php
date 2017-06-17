@@ -12,14 +12,24 @@ class CommandesRepository extends \Doctrine\ORM\EntityRepository
 {
 	public function byFacture($user)
     {
-        $qb = $this->createQueryBuilder('u')
-                ->select('u')
-                ->where('u.user = :user')
-                ->andWhere('u.valider = 1')
-                ->andWhere('u.reference != 0')
-                ->orderBy('u.id')
+        $qb = $this->createQueryBuilder('c')
+                ->select('c')
+                ->where('c.user = :user')
+                ->andWhere('c.valider = 1')
+                ->andWhere('c.reference != 0')
+                ->orderBy('c.id')
                 ->setParameter('user', $user);
         
+        return $qb->getQuery()->getResult();
+    }
+	
+	public function lesCommand()
+    {
+        $qb = $this->createQueryBuilder('c')
+                ->select('c')
+                ->where('c.valider = 1')
+                ->andWhere('c.reference != 0')
+                ->orderBy('c.date', 'DESC');
         return $qb->getQuery()->getResult();
     }
 }

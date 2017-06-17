@@ -25,8 +25,8 @@ class AdvertController extends Controller
   {
     $em = $this->getDoctrine()->getManager();
 
-    $findAdverts = $em->getRepository('OCPlatformBundle:Advert')->findByValid(true);
-	$listAdverts = $this->get('knp_paginator')->paginate($findAdverts,$request->query->get('page', 1),1);
+    $findAdverts = $em->getRepository('OCPlatformBundle:Advert')->findByThisV(true);
+	$listAdverts = $this->get('knp_paginator')->paginate($findAdverts,$request->query->get('page', 1),10);
     return $this->render('OCPlatformBundle:Advert:look.html.twig', array(
       'listAdverts' => $listAdverts
     ));
@@ -229,21 +229,21 @@ class AdvertController extends Controller
     $em = $this->getDoctrine()->getManager();
 
     $listJobs = $em->getRepository('OCPlatformBundle:Advert')->findBy(
-      array(),                 // Pas de critère
+      array('valid' => true),                 // Pas de critère
       array('date' => 'desc'), // On trie par date décroissante
       $limit,                  // On sélectionne $limit annonces
       0                        // À partir du premier
     );
 	
 	$listAnnons = $em->getRepository('OCAnnonceBundle:Annonce')->findBy(
-      array(),                 // Pas de critère
+      array('valid' => true),                 // Pas de critère
       array('date' => 'desc'), // On trie par date décroissante
       $limit,                  // On sélectionne $limit annonces
       0                        // À partir du premier
     );
 	
 	$listCvs = $em->getRepository('OCOnlineCvBundle:TheResume')->findBy(
-      array(),                 // Pas de critère
+      array('valid' => true),                 // Pas de critère
       array('date' => 'desc'), // On trie par date décroissante
       $limit,                  // On sélectionne $limit annonces
       0                        // À partir du premier

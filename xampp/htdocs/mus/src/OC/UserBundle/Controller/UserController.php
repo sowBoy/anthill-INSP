@@ -4,7 +4,10 @@ namespace OC\UserBundle\Controller;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use OC\UserBundle\Form\GivRoleType;
+use OC\UserBundle\Form\UtilisationType;
+use OC\UserBundle\Form\UtilisationEditType;
 use OC\UserBundle\Entity\User;
+use OC\UserBundle\Entity\Utilisation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +16,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController extends BaseController
 {
-    public function rolesAction(Request $request)
+    
+	/**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+	public function rolesAction(Request $request)
     {
         
     $form   = $this->get('form.factory')->create(GivRoleType::class);
@@ -54,17 +61,22 @@ class UserController extends BaseController
         $em = $this->getDoctrine()->getManager();
 		$cetteBout = $this->getUser()->getBoutique();
 		if(!$cetteBout == null){
-        $mesVents = $em->getRepository('OCCommandesBundle:PoidsTarif')->findByNameShop($cetteBout->getName());
-		/*foreach($mesVents as $mesVent){
-		$thisTab =  $mesVent->getTableau();
-		print_r($thisTab);
+		$mesVents = $em->getRepository('OCCommandesBundle:PoidsTarif')->findByValidAndNameS(true, $cetteBout->getName());
 		
-		}
-		die();*/
         return $this->render('OCUserBundle:User:ventes.html.twig', array('mesVents' => $mesVents));
 		}else{
 			return $this->redirect($this->generateUrl('oc_user_amenager'));
 		}
+    }
+	public function depotAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $mesAnnonces = $em->getRepository('OCAnnonceBundle:Annonce')->findByUser($this->getUser());
+        $mesCvs = $em->getRepository('OCOnlineCvBundle:TheResume')->findByUser($this->getUser());
+		$mesJobs = $em->getRepository('OCPlatformBundle:Advert')->findByUser($this->getUser());
+        return $this->render('OCUserBundle:User:depot.html.twig', array('mesAnnonces' => $mesAnnonces,
+		                                                                'mesCvs' => $mesCvs, 
+																		'mesJobs' => $mesJobs));
     }
 	
     public function facturePDFAction($id)
@@ -82,10 +94,10 @@ class UserController extends BaseController
         $html = $this->renderView('OCUserBundle:User:facturePDF.html.twig', array('facture' => $facture));
         
         $html2pdf = new \Html2Pdf_Html2Pdf('P','A4','fr');
-        $html2pdf->pdf->SetAuthor('DevAndClick');
+        $html2pdf->pdf->SetAuthor('Entremus');
         $html2pdf->pdf->SetTitle('Facture '.$facture->getReference());
-        $html2pdf->pdf->SetSubject('Facture DevAndClick');
-        $html2pdf->pdf->SetKeywords('facture,devandclick');
+        $html2pdf->pdf->SetSubject('Facture Entremus');
+        $html2pdf->pdf->SetKeywords('facture,entremus');
         $html2pdf->pdf->SetDisplayMode('real');
         $html2pdf->writeHTML($html);
         $html2pdf->Output('Facture.pdf');
@@ -117,5 +129,64 @@ class UserController extends BaseController
     
 	
     return $this->render('OCUserBundle:User:amenager.html.twig');
+  }
+  
+  public function lookinAction()
+  {
+    $em = $this->getDoctrine()->getManager();
+	
+	$utilisat = $em->getRepository('OCUserBundle:Utilisation')->findOneByValid(true);
+    return $this->render('OCUserBundle:User:lookin.html.twig', array(
+      'utilisat'           => $utilisat ));
+  }
+  
+  /**
+   * @Security("has_role('ROLE_ADMIN')")
+   */
+  public function utilisationAction(Request $request)
+  {
+   
+
+    $utlisat = new Utilisation();
+    $form   = $this->get('form.factory')->create(UtilisationType::class, $utlisat);
+
+    if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+     
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($utlisat);
+      $em->flush();
+
+      $request->getSession()->getFlashBag()->add('notice', 'enregistrée.');
+
+      return $this->redirectToRoute('oc_platform_home');
+    }
+
+    return $this->render('OCUserBundle:User:utilisation.html.twig', array(
+      'form' => $form->createView(),
+    ));
+  }
+  /**
+   * @Security("has_role('ROLE_ADMIN')")
+   */
+  public function editAction(Request $request)
+  {
+    $em = $this->getDoctrine()->getManager();
+	$utilisat = $em->getRepository('OCUserBundle:Utilisation')->findOneByValid(true);
+	$form = $this->get('form.factory')->create(UtilisationEditType::class, $utilisat);
+
+    if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+     
+      
+      $em->flush();
+
+      $request->getSession()->getFlashBag()->add('notice', 'modifiée.');
+
+      return $this->redirectToRoute('oc_platform_home');
+    }
+
+    return $this->render('OCUserBundle:User:edit.html.twig', array(
+      'utilisat' => $utilisat,
+      'form'   => $form->createView(),
+    ));
   }
 }

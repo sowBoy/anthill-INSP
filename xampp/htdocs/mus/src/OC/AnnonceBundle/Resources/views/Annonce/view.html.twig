@@ -1,4 +1,3 @@
-{# src/OC/PlatformBundle/Resources/view/Advert/view.html.twig #}
 
 {% extends "OCPlatformBundle::layout.html.twig" %}
 
@@ -20,18 +19,30 @@
   </div>
 
   <h2>{{annonce.categorie }}-{{ annonce.title }}-{{ annonce.localisation }}{% if annonce.prix is not empty %}-{{ annonce.prix }}€{% endif %}</h2>
-  <i>Par {{ annonce.user }}, le {{ annonce.date|date('d/m/Y') }}</i></br>
+  <i>Par {{ annonce.user }}, le {{ annonce.date|date('d/m/Y') }}, Email:{{ annonce.user.email }}{% if annonce.phone is not empty %}, Tel:{{ "0" }}{{ annonce.phone }}{% endif %}</i></br>
    <div class="well">
   
    <h3>Dèscription</h3>
   
     {{ annonce.content|raw }}</br>
-	{% if annonce.website is not empty %}Pour plus d'information RDV sur le site <a href="{{ annonce.website }}"></a>{% endif %}
-	
-  
-  </div>
-
-  
+	 </div>
+	 {% if annonce.galeries is not empty %}
+	 {% for galeries in annonce.galeries|slice(0, 4) %}
+	 <div class='col-sm-3 col-lg-3 col-md-3'>
+                            
+                               <div class='thumbnail'>
+                                <img
+        src="{{ asset(galeries.webPath) }}"
+        alt="{{ galeries.alt }}"
+        >
+                                   
+                                </div>
+                            </div>
+	{% endfor %}
+     {% endif %}
+ {% if annonce.website is not empty %}
+<a href="{{ annonce.website }}" class="btn btn-primary">En savoir plus</a>
+  {% endif %}
 
   <p>
     <a href="{{ path('oc_annonce_look') }}" class="btn btn-default">

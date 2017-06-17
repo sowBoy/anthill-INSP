@@ -1,4 +1,4 @@
-{# src/OC/PlatformBundle/Resources/views/Advert/index.html.twig #}
+
 
 {% extends "OCPlatformBundle::layout.html.twig" %}
 
@@ -9,7 +9,6 @@
 {% block ocplatform_body %}
 {{ render(controller("OCRechercheBundle:Recherche:job")) }}</br></br>
 
-<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-primary" style="border-color:white">
 				
@@ -38,7 +37,8 @@
 </div>
 			</div>
 		</div>
-		<div class="col-md-6">
+		<div class="row">
+<div class="col-md-6">
 			<div class="panel panel-primary" style="border-color:white">
 				
 				<div class="panel-body"> 
@@ -46,5 +46,5 @@
 						</div>
 		</div>
 	</div>
-  
+		
 {% endblock %}

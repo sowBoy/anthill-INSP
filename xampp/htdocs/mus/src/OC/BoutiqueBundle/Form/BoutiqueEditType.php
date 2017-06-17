@@ -10,7 +10,7 @@ class BoutiqueEditType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
-
+     $builder->remove('produits');
   }
 
   public function getParent()

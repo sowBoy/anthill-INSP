@@ -1,10 +1,19 @@
 {% extends "OCBoutiqueBundle::layout.html.twig" %}
 {% block body %}
 <ul class="nav nav-pills nav-stacked">
+ <h3>Les demandes</h3>
   {% for etuDem in listDemandes %}
     <li>
       <a href="{{ path('oc_boutique_etuDem', {'id': etuDem.id}) }}">
         {{ etuDem.objet }}
+      </a>
+    </li>
+  {% endfor %}
+  <h3>Les vendeurs</h3>
+  {% for mesVends in lesVendeurs %}
+    <li>
+      <a href="{{ path('oc_boutique_mesVends', {'id': mesVends.id}) }}">
+        {{ mesVends.name }}
       </a>
     </li>
   {% endfor %}

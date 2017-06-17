@@ -20,13 +20,22 @@ class BoutiqueController extends Controller
 	/**
      * @Security("has_role('ROLE_ADMIN')")
      */
-	public function etuDemAction(Demande $etuDem, $id)
+	public function etuDemAction(Demande $etuDem)
   {
     $em = $this->getDoctrine()->getManager();
-	$etuDem = $em->getRepository('OCBoutiqueBundle:Demande')->find($id);
-	
     return $this->render('OCBoutiqueBundle:Boutique:etuDem.html.twig', array(
-      'etuDem'           => $etuDem,
+      'etuDem'           => $etuDem
+    ));
+  }
+  
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+	public function mesVendsAction(Boutique $mesVends)
+  {
+    $em = $this->getDoctrine()->getManager();
+    return $this->render('OCBoutiqueBundle:Boutique:mesVends.html.twig', array(
+      'mesVends'           => $mesVends
     ));
   }
   
@@ -93,9 +102,10 @@ class BoutiqueController extends Controller
 		 $em = $this->getDoctrine()->getManager();
 		$theShop = $em->getRepository('OCBoutiqueBundle:Boutique')->findOneByUser($this->getUser());
 		$laDemande = $em->getRepository('OCBoutiqueBundle:Demande')->findOneByUser($this->getUser());
-		$ceRole = $this->getUser()->getRoles();
-		if(!$ceRole == array('ROLE_SELLER')){
-		if(null === $laDemande){	
+		$ceUser = $this->getUser();
+		if (!$this->get('security.authorization_checker')->isGranted('ROLE_SELLER')) {
+       
+		if($laDemande == null){	
 		 $em->persist($demande);
         $em->flush();
 		return $this->redirectToRoute('oc_core_message');
@@ -127,10 +137,6 @@ class BoutiqueController extends Controller
 
     if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
       
-	  foreach ($form->get('produits')->getData() as $prod) {
-          $prod->setBoutique($boutique);
-          $em->persist($prod);
-        }
       $em->flush();
 
       $request->getSession()->getFlashBag()->add('notice', 'Modifications bien prises en compte.');
@@ -150,7 +156,7 @@ class BoutiqueController extends Controller
   public function menuAction(Request $request)
   {
     $em = $this->getDoctrine()->getManager();
-	$findBoutiques = $em->getRepository('OCBoutiqueBundle:Boutique')->findAll();
+	$findBoutiques = $em->getRepository('OCBoutiqueBundle:Boutique')->findByValid(true);
     $listBoutiques = $this->get('knp_paginator')->paginate($findBoutiques,$request->query->get('page', 1),6);
     return $this->render('OCBoutiqueBundle:Boutique:menu.html.twig', array(
       'listBoutiques' => $listBoutiques
@@ -164,9 +170,10 @@ class BoutiqueController extends Controller
   {
     $em = $this->getDoctrine()->getManager();
 	$listDemandes = $em->getRepository('OCBoutiqueBundle:Demande')->findAll();
-
+    $lesVendeurs = $em->getRepository('OCBoutiqueBundle:Boutique')->findAll();
     return $this->render('OCBoutiqueBundle:Boutique:lesDemandes.html.twig', array(
-      'listDemandes' => $listDemandes
+      'listDemandes' => $listDemandes,
+	  'lesVendeurs' => $lesVendeurs
     ));
   }
   
@@ -200,6 +207,18 @@ class BoutiqueController extends Controller
 	$em->flush();
 	$em->remove($cetteD);
 	$em->flush();
+	$message = new \Swift_Message(
+      'Vous devenez vendeurs',
+      'Bravo vous venez d\'être accepté en temps que vendeur sur entremus.RDV sur vôtre espace utilisateur pour amenager vôtre boutique.'
+    );
+
+    $message
+      ->addTo($cetU->getEmail())
+      ->addFrom('anthillinspire@entremus.com')
+    ;
+
+    $this->get('mailer')->send($message);
+
     return $this->redirectToRoute('oc_boutique_lesDemandes');
   }
   
@@ -212,6 +231,43 @@ class BoutiqueController extends Controller
     $em = $this->getDoctrine()->getManager();
 	$cetteDem = $em->getRepository('OCBoutiqueBundle:Demande')->find($id);
 	$em->remove($cetteDem);
+	$em->flush();
+	$message = new \Swift_Message(
+      'Refus de demande',
+      'Nous sommes desolé de ne pouvoir accèpter votre demande.'
+    );
+
+    $message
+      ->addTo($cetteDem->getUser()->getEmail())
+      ->addFrom('anthillinspire@entremus.com')
+    ;
+
+    $this->get('mailer')->send($message);
+    return $this->redirectToRoute('oc_boutique_lesDemandes');
+  }
+  
+  /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+  public function suspendreAction($id)
+  {
+    
+    $em = $this->getDoctrine()->getManager();
+	$cetteDem = $em->getRepository('OCBoutiqueBundle:Boutique')->find($id);
+	$cetteDem->setValid(false);
+	$em->flush();
+    return $this->redirectToRoute('oc_boutique_lesDemandes');
+  }
+  
+  /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+  public function leverSAction($id)
+  {
+    
+    $em = $this->getDoctrine()->getManager();
+	$cetteDem = $em->getRepository('OCBoutiqueBundle:Boutique')->find($id);
+	$cetteDem->setValid(true);
 	$em->flush();
     return $this->redirectToRoute('oc_boutique_lesDemandes');
   }

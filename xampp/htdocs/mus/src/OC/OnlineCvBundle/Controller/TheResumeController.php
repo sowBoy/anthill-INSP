@@ -83,6 +83,7 @@ class TheResumeController extends Controller
 	  $em->persist($theResume);
       $em->flush();
 	  
+	  
       return $this->redirect($this->generateUrl('oc_core_message'));
     }
 	
@@ -94,7 +95,7 @@ class TheResumeController extends Controller
     /**
      * @Security("has_role('ROLE_USER')")
      */
-  public function editAction($id, TheResume $theResume, Request $request, Loisirs $loisirs)
+  public function editAction($id, TheResume $theResume, Request $request)
   {
     
 	 $em = $this->getDoctrine()->getManager();
@@ -188,8 +189,8 @@ class TheResumeController extends Controller
   {
     $em = $this->getDoctrine()->getManager();
 
-    $findTheResumes = $em->getRepository('OCOnlineCvBundle:TheResume')->findByValid(true);
-    $listTheResumes = $this->get('knp_paginator')->paginate($findTheResumes,$request->query->get('page', 1),1);
+    $findTheResumes = $em->getRepository('OCOnlineCvBundle:TheResume')->findByThisV(true);
+    $listTheResumes = $this->get('knp_paginator')->paginate($findTheResumes,$request->query->get('page', 1),10);
     return $this->render('OCOnlineCvBundle:TheResume:menu.html.twig', array(
       'listTheResumes' => $listTheResumes
     ));

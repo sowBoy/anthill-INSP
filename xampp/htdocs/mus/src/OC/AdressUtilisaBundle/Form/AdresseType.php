@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AdresseType extends AbstractType
 {
@@ -17,6 +18,11 @@ class AdresseType extends AbstractType
     {
         $builder->add('nom',     TextType::class)
 		->add('prenom',     TextType::class)
+		 ->add('pays',     ChoiceType::class, array(
+        'choices'  => array(
+        'France' => 'France'
+		)))
+		->add('ville',     TextType::class)
 		->add('telephone',     TextType::class)
 		->add('adresse',     TextType::class)
 		->add('cp',     TextType::class)

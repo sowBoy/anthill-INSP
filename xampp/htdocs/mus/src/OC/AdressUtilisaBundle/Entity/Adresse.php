@@ -55,6 +55,20 @@ class Adresse
      * @ORM\Column(name="cp", type="string", length=10)
      */
     private $cp;
+	
+	/**
+     * @var string
+     *
+     * @ORM\Column(name="pays", type="string", length=125)
+     */
+    private $pays;
+	
+	/**
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", length=125)
+     */
+    private $ville;
 
     /**
      * @ORM\ManyToOne(targetEntity="OC\UserBundle\Entity\User", inversedBy="adresses")
@@ -214,5 +228,53 @@ class Adresse
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set pays
+     *
+     * @param string $pays
+     *
+     * @return Adresse
+     */
+    public function setPays($pays)
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * Get pays
+     *
+     * @return string
+     */
+    public function getPays()
+    {
+        return $this->pays;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param string $ville
+     *
+     * @return Adresse
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return string
+     */
+    public function getVille()
+    {
+        return $this->ville;
     }
 }

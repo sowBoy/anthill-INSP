@@ -5,6 +5,7 @@ namespace OC\OnlineCvBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TheResume
@@ -67,7 +68,7 @@ class TheResume
     /**
      * @var string
      *
-     * @ORM\Column(name="website", type="string", length=255)
+     * @ORM\Column(name="website", type="string", length=255, nullable=true)
      */
     private $website;
 	
@@ -103,6 +104,12 @@ class TheResume
      * @var string
      *
      * @ORM\Column(name="profile", type="text")
+	 * @Assert\Length(
+     *      min = 200,
+     *      max = 2000,
+     *      minMessage = "Le text est trop court",
+     *      maxMessage = "Le text est trop long"
+     * )
      */
     private $profile;
 

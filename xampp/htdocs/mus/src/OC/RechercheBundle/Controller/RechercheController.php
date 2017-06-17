@@ -103,6 +103,6 @@ class RechercheController extends Controller
             throw $this->createNotFoundException('Désolé aucun resultat.');
         }
         
-        return $this->render('OCBoutiqueBundle:Boutique:menu.html.twig', array('listBoutiques' => $listBoutiques));
+        return $this->render('OCBoutiqueBundle:Boutique:menu.html.twig', array('listBoutiques' => $listBoutiques,));
     }
 }

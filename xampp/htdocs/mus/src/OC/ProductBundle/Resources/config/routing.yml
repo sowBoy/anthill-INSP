@@ -15,6 +15,13 @@ oc_product_ajouter:
         _controller: OCProductBundle:Panier:ajouter
     requirements:
         id: \d+
+        
+oc_product_rajout:
+    path:      /rajout/{id}
+    defaults:
+        _controller: OCProductBundle:Panier:rajout
+    requirements:
+        id: \d+
 
 oc_product_panier:
     path:      /panier
@@ -56,3 +63,21 @@ oc_product_validation:
     path:      /validation
     defaults:
         _controller: OCProductBundle:Panier:validation
+        
+oc_product_liste:
+    path:      /liste
+    defaults:
+        _controller: OCProductBundle:Product:liste
+        
+oc_product_modification:
+    path:      /modification/{id}
+    defaults:
+        _controller: OCProductBundle:Product:modification
+    requirements:
+        id: \d+
+        
+oc_product_ addProd:
+    path:      /addProd
+    defaults:
+        _controller: OCProductBundle:Product:addProd
+        

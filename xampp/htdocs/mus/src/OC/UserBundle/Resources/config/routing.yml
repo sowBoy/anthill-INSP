@@ -24,4 +24,20 @@ oc_user_amenager:
     path:     /amenager
     defaults: { _controller: OCUserBundle:User:amenager }
     
+oc_user_depot:
+    path:     /depot
+    defaults: { _controller: OCUserBundle:User:depot }
+    
+oc_user_utilisation:
+    path:     /utilisation
+    defaults: { _controller: OCUserBundle:User:utilisation }
+    
+oc_user_edit:
+    path:     /edit
+    defaults: { _controller: OCUserBundle:User:edit }
+        
+oc_user_lookin:
+    path:     /lookin
+    defaults: { _controller: OCUserBundle:User:lookin }
+    
 

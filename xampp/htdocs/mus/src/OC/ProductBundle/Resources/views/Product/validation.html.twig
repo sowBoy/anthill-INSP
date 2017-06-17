@@ -4,27 +4,20 @@
 
  <div class="row">
   <h2>Valider mon panier</h2>
-  
+                       
             <table class="table table-striped table-hover">
                 <thead style="margin-right:40px">
                     <tr>
-                        <th>Références</th>
-						<th>Vendeur</th>
-                        <th>Quantité</th>
-                        <th>Prix</th>
-                        <th>Total HT</th>
+                        <th>Récapitulatif</th>
+                        <th>Livraison</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for produit in thisCommande.commande.produit %}
                     <tr>
-                        <td>{{ produit.reference }}</td>
-						 <td>{{ produit.vendeur }}</td>
-                        <td>
-                            {{ produit.quantite }}
-                        </td>
-                        <td>{{ produit.prixHT }} €</td>
-                        <td>{{ produit.prixHT * produit.quantite }} €</td>
+                        
+                        <td>{{ produit.reference }}</br>Vendu par {{ produit.vendeur }}</br>Quantité:{{ produit.quantite }}</br>Total HT:{{ produit.prixHT * produit.quantite }} €</td>
+                        <td>Sous 5 jours ouvrables</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -46,14 +39,13 @@
 			
 			</div>
 			<div class="row">
-			<form action="{{ path('oc_commandes_validation', { 'id' : thisCommande.id }) }}" method="POST"/>
-                <input name="token" type="hidden" value="{{ thisCommande.commande.token }}" />
+			<form action="{{ path('oc_commandes_validation', { 'id' : thisCommande.id }) }}" method="POST">
+			    <input name="token" type="hidden" value="{{ thisCommande.commande.token }}" />
                 <input name="prix" type="hidden" value="{{ thisCommande.totalGlob }}" />
                 <input name="date" type="hidden" value="{{ thisCommande.date|date('dmyhms') }}" />
-                <button type="submit" class="btn btn-success pull-right" style ="margin-bottom:10px">Payer</button>
-            </form>
-            
-            <a href="{{ path('oc_product_livraison') }}" class="btn btn-primary" style ="margin-bottom:10px">retour</a>
+				<button type="submit" class="btn btn-success pull-right">Payer</button>
+			</form>
+            <a href="{{ path('oc_product_livraison') }}" class="btn btn-primary" style ="margin-top:30px; margin-bottom:10px">retour</a>
 			</div>
     <div class="row">			
 		<div class="col-md-6">
@@ -67,7 +59,7 @@
                     <dt><h4>Adresse de livraison</h4></dt>
                     <dt>{{ thisCommande.commande.livraison.prenom }} {{ thisCommande.commande.livraison.nom }}</dt>
                     <dt>{{ thisCommande.commande.livraison.adresse }}</dt>
-                    <dt>{{ thisCommande.commande.livraison.cp }}</dt>
+                    <dt>{{ thisCommande.commande.livraison.cp }}:{{ thisCommande.commande.facturation.ville }}</dt>
                 </dl>
             </div>
             
@@ -76,7 +68,7 @@
                     <dt><h4>Adresse de facturation</h4></dt>
                     <dt>{{ thisCommande.commande.facturation.prenom }} {{ thisCommande.commande.facturation.nom }}</dt>
                     <dt>{{ thisCommande.commande.facturation.adresse }}</dt>
-                    <dt>{{ thisCommande.commande.facturation.cp }}</dt>
+                    <dt>{{ thisCommande.commande.facturation.cp }}:{{ thisCommande.commande.facturation.ville }}</dt>
                 </dl>
             </div></div>
 			</div>
@@ -88,9 +80,13 @@
 					
 				</div>
 				<div class="panel-body"><h3>Details des frais de livraison</h3>
+				<ul>
 					{% for ParVendeur in ParVendeurs %}
-                   {{ ParVendeur.caseTar }} au compte {{ ParVendeur.nameShop }}
-					{% endfor %}</div>
+					<li>
+                   {{ ParVendeur.caseTar }}€ au compte de: {{ ParVendeur.nameShop }}
+				   </li>
+					{% endfor %}
+					</ul></div>
 		</div>
 		
 	</div>

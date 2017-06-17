@@ -1,5 +1,5 @@
 oc_commandes_homepage:
-    path:     /
+    path:     /page
     defaults: { _controller: OCCommandesBundle:Default:index }
        
 oc_commandes_validation:
@@ -8,3 +8,9 @@ oc_commandes_validation:
         _controller: OCCommandesBundle:Commandes:validationCommande
     requirements:
         id: \d+
+        
+
+oc_commandes_lesCommandes:
+    path:     /lesCommandes
+    defaults: { _controller: OCCommandesBundle:Commandes:lesCommandes }        
+

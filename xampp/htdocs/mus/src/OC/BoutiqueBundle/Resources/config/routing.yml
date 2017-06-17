@@ -52,10 +52,32 @@ oc_boutique_refuser:
     requirements:
         id: \d+
         
+oc_boutique_suspendre:
+    path:      /suspendre/{id}
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:suspendre
+    requirements:
+        id: \d+
+        
+oc_boutique_leverS:
+    path:      /leverS/{id}
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:leverS
+    requirements:
+        id: \d+
+        
+        
 oc_boutique_etuDem:
     path:      /etuDem/{id}
     defaults:
         _controller: OCBoutiqueBundle:Boutique:etuDem
+    requirements:
+        id: \d+
+        
+oc_boutique_mesVends:
+    path:      /mesVends/{id}
+    defaults:
+        _controller: OCBoutiqueBundle:Boutique:mesVends
     requirements:
         id: \d+
         

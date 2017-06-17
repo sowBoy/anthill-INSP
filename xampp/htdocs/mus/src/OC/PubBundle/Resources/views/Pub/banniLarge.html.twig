@@ -1,16 +1,18 @@
 {% block body %}
-<MARQUEE DIRECTION="left">
+
+<marquee direction="left" behavior="scroll" direction="left" id="mymar">
+
 {% for banniere in listeBanniLarges %}
 
-<a href="">{% if banniere.banni is not null %}
+<a href="{{ banniere.lien }}">{% if banniere.banni is not null %}
       <img
         src="{{ asset(banniere.banni.webPath) }}"
         alt="{{ banniere.banni.alt }}"
-        style=" height: 300px; width: 250px"/>
+        style=" height: 300px; width: 230px; margin-right:10px; margin-top:5px"/>
     {% endif %}</a>
 {% endfor %}
 
-</MARQUEE>
+</marquee>
 
 {% endblock %}
 

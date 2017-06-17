@@ -1,5 +1,3 @@
-{# src/OC/PlatformBundle/Resources/views/Advert/index.html.twig #}
-
 {% block ocplatform_body %}
 
   <h3>Dernières offres d'emploi</h3>
@@ -25,7 +23,12 @@
     {% for annonce in listAnnons %}
       <li>
         <a href="{{ path('oc_annonce_view', {'id': annonce.id}) }}">
-          {{ annonce.title }}
+         
+      <img
+        src="{{ asset(annonce.image.webPath) }}"
+        alt="{{ annonce.image.alt }}"
+        height="60" class="img-circle" >
+       {{ annonce.title }}
         </a>
         par {{ annonce.user }},
         le {{ annonce.date|date('d/m/Y') }}

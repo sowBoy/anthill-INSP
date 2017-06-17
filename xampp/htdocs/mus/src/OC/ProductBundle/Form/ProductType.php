@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use OC\ProductBundle\Form\ProductImageType;
 class ProductType extends AbstractType
 {
@@ -23,7 +24,13 @@ class ProductType extends AbstractType
 		->add('nom',     TextType::class)
 		->add('descriptif',     TextareaType::class)
 		->add('prix',     MoneyType::class)
-		->add('tva',     PercentType::class)
+		->add('tva',     ChoiceType::class, array(
+        'choices'  => array(
+        '20%' => '0.2',
+		'10%' => '0.1',
+		'5.5%' => '0.055',
+		'2.1%' => '0.021'
+		)))
 		->add('quantity',     NumberType::class, array(
              'label' => 'Quantité',
         ))
@@ -66,7 +73,8 @@ class ProductType extends AbstractType
 		'Chartreuse' => '#7FFF00',
         'Peau-rouge' => '#CD5C5C',
         ),
-		 'required'    => false
+		 'required'    => false,
+		 'label' => 'Couleur(non réquise)'
       ))
 		->add('taille',     ChoiceType::class, array(
         'choices'  => array(
@@ -78,10 +86,16 @@ class ProductType extends AbstractType
 		'XXL' => 'XXL',
 		'XXXL' => 'XXXL',
         ),
-		 'required'    => false
+		 'required'    => false,
+		 'label' => 'Taille(non réquise)'
       ))
-		->add('poids',     TextType::class)
-		->add('image',     ProductImageType::class);
+		->add('poids',     TextType::class, array(
+    'label' => 'Poids(en Kg)',
+  ))
+		->add('image',     ProductImageType::class)
+		 ->add('save',      SubmitType::class, array(
+    'label' => 'Sauvegarder',
+));
 		
     }
     

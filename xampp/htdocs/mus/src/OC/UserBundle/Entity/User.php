@@ -74,6 +74,12 @@ class User extends BaseUser
      */
     private $boutique;
 	
+	/**
+     * One User has One Boutique.
+     * @ORM\OneToOne(targetEntity="OC\BoutiqueBundle\Entity\Demande", mappedBy="user")
+     */
+    private $demande;
+	
     /**
      * Add advert
      *
@@ -369,5 +375,29 @@ class User extends BaseUser
     public function getBanniLarge()
     {
         return $this->banniLarge;
+    }
+
+    /**
+     * Set demande
+     *
+     * @param \OC\BoutiqueBundle\Entity\Demande $demande
+     *
+     * @return User
+     */
+    public function setDemande(\OC\BoutiqueBundle\Entity\Demande $demande = null)
+    {
+        $this->demande = $demande;
+
+        return $this;
+    }
+
+    /**
+     * Get demande
+     *
+     * @return \OC\BoutiqueBundle\Entity\Demande
+     */
+    public function getDemande()
+    {
+        return $this->demande;
     }
 }

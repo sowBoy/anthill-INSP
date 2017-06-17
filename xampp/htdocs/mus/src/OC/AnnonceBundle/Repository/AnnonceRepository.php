@@ -16,4 +16,17 @@ class AnnonceRepository extends \Doctrine\ORM\EntityRepository
                     ->setParameter('chaine', $chaine);
         return $qb->getQuery()->getResult();
     }	
+	
+	public function findByThisV($valid)
+{
+  $qb = $this->createQueryBuilder('a');
+  $qb->where('a.valid = :valid')
+       ->setParameter('valid', $valid)
+     ->orderBy('a.date', 'DESC');
+
+  return $qb
+    ->getQuery()
+    ->getResult();
+  
+}
 }

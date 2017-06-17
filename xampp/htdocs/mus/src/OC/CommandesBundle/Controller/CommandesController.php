@@ -11,9 +11,7 @@ use OC\CommandesBundle\Entity\Commandes;
 use OC\ProductBundle\Entity\Product;
 class CommandesController extends Controller
 {
-    /*
-     * Cette methode remplace l'api banque.
-     */
+   
     public function validationCommandeAction($id)
     {
         
@@ -23,9 +21,35 @@ class CommandesController extends Controller
         $commande = $em->getRepository('OCCommandesBundle:Commandes')->find($id);
         if (!$commande || $commande->getValider() == 1)
             throw $this->createNotFoundException('La commande n\'existe pas');
-        
+		
+        /*\Stripe\Stripe::setApiKey("sk_live_Cmqgp8o4UZdTeKVXGX5qVkwY");
+
+				$token = $_POST['stripeToken'];
+				$charge = \Stripe\Charge::create(array(
+				  "amount" => 100*(number_format($commande->getTotalGlob(), 2, ',', ' ')),
+				  "currency" => "eur",
+				  "description" => "Charge",
+				  "source" => $token,
+				));*/
         $commande->setValider(1);
-        $commande->setReference($this->container->get('setNewReference')->reference()); //Service
+        $commande->setReference($this->container->get('setNewReference')->reference()); 
+		$thisPoidsTars = $em->getRepository('OCCommandesBundle:PoidsTarif')->findByCommande($commande);
+		foreach($thisPoidsTars as $thisPoidsTar){
+			$thisPoidsTar->setValid(true);
+			
+			$message = new \Swift_Message(
+      'Nouvelle vente',
+      'Vous venez d\'enregistrer une nouvelle commande.RDV sur vôtre espace utilisateur(mes ventes) pour commencer à préparer la livraison.'
+    );
+
+    $message
+      ->addTo($thisPoidsTar->getEmailShop())
+      ->addFrom('anthillinspire@entremus.com')
+    ;
+
+    $this->get('mailer')->send($message);
+
+		}
 		
 		$contenu = $commande->getCommande();
 		$cesProduits = $contenu['produit'];
@@ -43,8 +67,47 @@ class CommandesController extends Controller
         $session->remove('adresse');
         $session->remove('panier');
         $session->remove('commande');
-        
+		
+		$messageAdmin = new \Swift_Message(
+      'Nouvelle vente',
+      ' Nouvelle commande sur votre site.'
+    );
+
+    $messageAdmin
+      ->addTo('anthillinspire@entremus.com')
+      ->addFrom('anthillinspire@entremus.com')
+    ;
+
+    $this->get('mailer')->send($messageAdmin);
+	
+	$messageClient = new \Swift_Message(
+      'Confirmation de commande',
+      ' Nous vous confimons que votre commande a bien été prise en compte.Les vendeurs concernés s\'activeront pour vous livrer dans les delai indiqués.Vous pouvez 
+	  à tout moment télécharger les PDF de vos factures depuis votre espace utilisateur entremus.com en cliquant sur commandes.
+	  
+	  Cordialement
+	  L\'équipe Entremus'
+    );
+
+    $messageClient
+      ->addTo($commande->getUser()->getEmail())
+      ->addFrom('anthillinspire@entremus.com')
+    ;
+
+    $this->get('mailer')->send($messageClient);
+		
         $this->get('session')->getFlashBag()->add('success','Votre commande est validé avec succès');
         return $this->redirect($this->generateUrl('oc_user_facture'));
+    }
+	
+	/**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+	public function lesCommandesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $lesCommands = $em->getRepository('OCCommandesBundle:Commandes')->lesCommand();
+        
+        return $this->render('OCCommandesBundle:Commandes:lesCommandes.html.twig', array('lesCommands' => $lesCommands));
     }
 }

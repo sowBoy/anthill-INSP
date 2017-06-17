@@ -366,4 +366,14 @@ class Commandes
     {
         return $this->lesTvas;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->annexes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lesTvas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->poidsTarifs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

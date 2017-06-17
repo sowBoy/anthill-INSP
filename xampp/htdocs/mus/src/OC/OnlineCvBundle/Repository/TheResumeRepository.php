@@ -18,5 +18,18 @@ class TheResumeRepository extends \Doctrine\ORM\EntityRepository
                     ->orderBy('t.id')
                     ->setParameter('chaine', $chaine);
         return $qb->getQuery()->getResult();
-    }	
+    }
+
+   public function findByThisV($valid)
+{
+  $qb = $this->createQueryBuilder('t');
+  $qb->where('t.valid = :valid')
+       ->setParameter('valid', $valid)
+     ->orderBy('t.date', 'DESC');
+
+  return $qb
+    ->getQuery()
+    ->getResult();
+  
+}	
 }

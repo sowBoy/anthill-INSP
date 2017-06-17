@@ -23,6 +23,12 @@ class Application
 
   /**
    * @ORM\Column(name="content", type="text")
+   * @Assert\Length(
+   *      min = 250,
+   *      max = 2500,
+   *      minMessage = "Le text est trop court",
+   *      maxMessage = "Le text est trop long"
+   * )
    */
   private $content;
 

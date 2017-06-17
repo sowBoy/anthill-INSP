@@ -18,5 +18,21 @@ class PoidsTarifRepository extends \Doctrine\ORM\EntityRepository
                 ->setParameter('commande', $thisC);
         
         return $qb->getQuery()->getScalarResult();
-    }	
+    }
+
+public function findByValidAndNameS($valid, $nameShop)
+
+{
+
+  $qb = $this->createQueryBuilder('p');
+  $qb->where('p.valid = :valid')
+       ->setParameter('valid', $valid)
+     ->andWhere('p.nameShop = :nameShop')
+       ->setParameter('nameShop', $nameShop)
+  ;
+  return $qb
+    ->getQuery()
+    ->getResult()
+  ;
+}	
 }

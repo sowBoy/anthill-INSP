@@ -6,9 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use OC\PlatformBundle\Validator\Antiflood;
-// On rajoute ce use pour la contrainte :
+
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-// N'oubliez pas de rajouter ce « use », il définit le namespace pour les annotations de validation
+
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -50,12 +50,18 @@ class Annonce
      */
     private $categorie;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="text")
-     */
-    private $content;
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="content", type="text")
+   * @Assert\Length(
+   *      min = 250,
+   *      max = 3000,
+   *      minMessage = "Le text est trop court",
+   *      maxMessage = "Le text est trop long"
+   * )
+   */
+  private $content;
 
     /**
      * @var string
@@ -89,7 +95,7 @@ class Annonce
 	/**
      * @var string
      *
-     * @ORM\Column(name="website", type="string", length=255)
+     * @ORM\Column(name="website", type="string", length=255, nullable=true)
      */
     private $website;
 	
@@ -105,9 +111,24 @@ class Annonce
      */
     private $valid = false;
 	
+	/**
+     * 
+     * @ORM\OneToMany(targetEntity="Galerie", mappedBy="annonce", cascade={"persist", "remove"})
+	 * @Assert\Valid()
+     */
+    private $galeries;
+	
+	/**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
+     */
+    private $phone;
+	
 	public function __construct()
   {
     $this->date         = new \Datetime();
+	$this->galeries = new \Doctrine\Common\Collections\ArrayCollection();
    
   }
 
@@ -409,5 +430,63 @@ class Annonce
     public function getValid()
     {
         return $this->valid;
+    }
+
+    /**
+     * Add galery
+     *
+     * @param \OC\AnnonceBundle\Entity\Galerie $galery
+     *
+     * @return Annonce
+     */
+    public function addGalery(\OC\AnnonceBundle\Entity\Galerie $galery)
+    {
+        $this->galeries[] = $galery;
+
+        return $this;
+    }
+
+    /**
+     * Remove galery
+     *
+     * @param \OC\AnnonceBundle\Entity\Galerie $galery
+     */
+    public function removeGalery(\OC\AnnonceBundle\Entity\Galerie $galery)
+    {
+        $this->galeries->removeElement($galery);
+    }
+
+    /**
+     * Get galeries
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGaleries()
+    {
+        return $this->galeries;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     *
+     * @return Annonce
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }

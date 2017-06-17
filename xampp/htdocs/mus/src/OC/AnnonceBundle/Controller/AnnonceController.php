@@ -1,7 +1,5 @@
 <?php
 
-// src/OC/PlatformBundle/Controller/AdvertController.php
-
 namespace OC\AnnonceBundle\Controller;
 
 use OC\AnnonceBundle\Entity\Annonce;
@@ -24,9 +22,8 @@ class AnnonceController extends Controller
   public function lookAction(Request $request)
   {
     $em = $this->getDoctrine()->getManager();
-    
-    $findAnnonces = $em->getRepository('OCAnnonceBundle:Annonce')->findByValid(true);
-	$listAnnonces = $this->get('knp_paginator')->paginate($findAnnonces,$request->query->get('page', 1),3);
+    $findAnnonces = $em->getRepository('OCAnnonceBundle:Annonce')->findByThisV(true);
+	$listAnnonces = $this->get('knp_paginator')->paginate($findAnnonces,$request->query->get('page', 1),10);
 	
     return $this->render('OCAnnonceBundle:Annonce:look.html.twig', array(
       'listAnnonces' => $listAnnonces
@@ -52,7 +49,11 @@ class AnnonceController extends Controller
       'preAnnonce'           => $preAnnonce,
     ));
    }
-    /**
+    
+	
+	
+	
+	/**
      * @Security("has_role('ROLE_USER')")
      */
   public function addAction(Request $request)
@@ -64,10 +65,29 @@ class AnnonceController extends Controller
 
     if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
       $em = $this->getDoctrine()->getManager();
+	  foreach ($form->get('galeries')->getData() as $gal) {
+          $gal->setAnnonce($annonce);
+          $em->persist($gal);
+        }
+	  $em->flush();
+	  $annonce->getGaleries()->clear(); 
       $em->persist($annonce);
       $em->flush();
 
       $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+	  
+	   $message = new \Swift_Message(
+      'Votre annonce',
+      'Nous avons reçus votre annonce.Elle sera traité dans les plus brèf delai.'
+    );
+
+    $message
+      ->addTo($this->getUser()->getEmail())
+      ->addFrom('anthillinspire@entremus.com')
+    ;
+
+    $this->get('mailer')->send($message);
+
 	  return $this->redirect($this->generateUrl('oc_core_message'));
    
     }
@@ -87,12 +107,23 @@ class AnnonceController extends Controller
     $currentUs = $this->getUser();
 	if($use == $currentUs){
     if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-      // Inutile de persister ici, Doctrine connait déjà notre annonce
+     
       $em = $this->getDoctrine()->getManager();
 	  $annonce->setValid(false);
       $em->flush();
 
       $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
+	   $message = new \Swift_Message(
+      'Votre annonce',
+      'Nous avons reçus votre annonce.Elle sera traité dans les plus brèf delai.'
+    );
+
+    $message
+      ->addTo($this->getUser()->getEmail())
+      ->addFrom('anthillinspire@entremus.com')
+    ;
+
+    $this->get('mailer')->send($message);
 
       return $this->redirect($this->generateUrl('oc_core_message'));
     }
@@ -146,6 +177,18 @@ class AnnonceController extends Controller
       $em->flush();
 
       $request->getSession()->getFlashBag()->add('info', "L'annonce a bien été supprimée.");
+	  
+	   $message = new \Swift_Message(
+      'Votre annonce',
+      'Malheureusement votre annonce ne correspond pas aux critères de la maison.'
+    );
+
+    $message
+      ->addTo($preAnnonce->getUser()->getEmail())
+      ->addFrom('anthillinspire@entremus.com')
+    ;
+
+    $this->get('mailer')->send($message);
 
       return $this->redirectToRoute('oc_annonce_checkin');
     }
@@ -180,6 +223,19 @@ class AnnonceController extends Controller
     $preAnnonce->setValid(true);
       $em->flush();
 	  $request->getSession()->getFlashBag()->add('info', "L'annonce a bien été supprimée.");
+	  
+	   $message = new \Swift_Message(
+      'Votre annonce',
+      'Assalam alykoum votre annonce est en ligne RDV sur votre espace utilisateur(mon depôt).'
+    );
+
+    $message
+      ->addTo($preAnnonce->getUser()->getEmail())
+      ->addFrom('anthillinspire@entremus.com')
+    ;
+
+    $this->get('mailer')->send($message);
+
 
       return $this->redirectToRoute('oc_annonce_checkin');
   }
@@ -193,7 +249,7 @@ class AnnonceController extends Controller
 		$message = \Swift_Message::newInstance()
                 ->setSubject($form->get('objet')->getData())
                 ->setFrom($form->get('email')->getData())
-                ->setTo('entremus1@gmail.com')
+                ->setTo('anthillinspire@entremus.com')
                   ->setBody($form->get('message')->getData()."<br>ContactMail :".$form->get('email')->getData());
 
             $this->get('mailer')->send($message);

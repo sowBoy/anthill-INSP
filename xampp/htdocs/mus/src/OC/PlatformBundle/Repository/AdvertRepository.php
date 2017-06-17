@@ -42,4 +42,17 @@ class AdvertRepository extends EntityRepository
       ->setParameter('end', new \Datetime(date('Y') . '-12-31'))   // Et le 31 décembre de cette année
     ;
   }
+  
+  public function findByThisV($valid)
+{
+  $qb = $this->createQueryBuilder('a');
+  $qb->where('a.valid = :valid')
+       ->setParameter('valid', $valid)
+     ->orderBy('a.date', 'DESC');
+
+  return $qb
+    ->getQuery()
+    ->getResult();
+  
+}
 }
