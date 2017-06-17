@@ -79,7 +79,7 @@ class ProfileController extends Controller
 	  
     }
 	
-    return $this->render('AIProfileBundle:Profile:add.html.twig', array(
+    return $this->render('AIProfileBundle:Nouveau dossier:add.html.twig', array(
       'form' => $form->createView(),
     ));
   }
