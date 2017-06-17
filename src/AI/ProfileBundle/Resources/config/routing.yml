@@ -1,0 +1,20 @@
+ai_profile_homepage:
+    path:     /
+    defaults: { _controller: AIProfileBundle:Default:index }
+    
+ai_profile_view:
+    path:      /profile/{id}
+    defaults:
+        _controller: AIProfileBundle:Profile:view
+    requirements:
+        id: \d+
+        
+ai_profile_add:
+    path:      /add
+    defaults:
+        _controller: AIProfileBundle:Profile:add
+             
+ai_profile_menu:
+    path:      /menu
+    defaults:
+        _controller: AIProfileBundle:Profile:menu
