@@ -19,7 +19,7 @@ integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7T
     <div class="alert alert-info">Message flash : {{ message }}</div>
   {% endfor %}
 
-<h3>Formulaire de renseignement de profile avec versioning<h3>
+<h3>Profile information form with versioning<h3>
 <div class="well">
   {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
@@ -31,7 +31,7 @@ integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7T
   {# Génération manuelle et éclatée : #}
   <div class="form-group">
     {# Génération du label. #}
-    {{ form_label(form.name, "Une appellation", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    {{ form_label(form.name, "Heading", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
 
     {# Affichage des erreurs pour ce champ précis. #}
     {{ form_errors(form.name) }}
@@ -45,7 +45,7 @@ integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7T
   
   <div class="well">
   {{ form_row(form.versions) }}
-  <a href="#" id="add_versions" class="btn btn-default">Ajouter une version</a>
+  <a href="#" id="add_versions" class="btn btn-default">Add a version</a>
   </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -109,7 +109,7 @@ integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7T
 
       
 
-      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+      var $deleteLink = $('<a href="#" class="btn btn-danger">Remove</a>');
 
 
      
@@ -135,18 +135,12 @@ integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7T
 
 </script>
  
-  {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
   {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
-  {# Génération automatique des champs pas encore écrits.
-     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
-     et tous les champs cachés (type « hidden »). #}
   {{ form_rest(form) }}
-
-  {# Fermeture de la balise <form> du formulaire HTML #}
   {{ form_end(form) }}
 </div>
  <footer>
-  <p>Posté par: <strong><a href="http://anthillinspire.fr/">Anthillinspire</a></strong></p>
+  <p>Posted by: <strong><a href="http://anthillinspire.fr/">Anthillinspire</a></strong></p>
   <p>Contact: boubacar.sow@anthillinspire.fr</p>
 </footer> 
 </body>
