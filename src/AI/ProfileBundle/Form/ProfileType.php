@@ -25,9 +25,7 @@ class ProfileType extends AbstractType
         'allow_delete' => true
 
       ))
-		->add('save',      SubmitType::class, array(
-    'label' => 'Sauvegarder',
-));
+		->add('save',      SubmitType::class);
     }
     
     /**
