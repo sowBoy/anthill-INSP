@@ -43,27 +43,28 @@ class ProfileController extends Controller
     if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 		 $em = $this->getDoctrine()->getManager();
 		/*
-		Théoriquement voici ce qui est censé marcher:
+		Theoretically this is what is supposed to work:
 		
-		On supprime d'abord la liste des versions du profile rajoutés dans le formulaire.
+		First deletes the list of versions of the profile added in the form.
 		$profile->getVersions()->clear();
-		On persite puis on flush.
-	    $em->persist($profile);
-        $em->flush();
 		
-		Maintenant que doctrine a enregistré l'objet Profile, on recupère toutes les versions rajouté en indiquant
-		qu'elles appartiennent bien à l'objet Profile precedemment enregistré et on procède à un second flush.
+               Proceed to persist then to flush.
+	       $em->persist($profile);
+                $em->flush();
+		
+		Now that doctrine has registered the Profile object, we recuperate all the versions added 
+                indicating that they belong to the previously registered Profile object .
 		
 		foreach ($form->get('versions')->getData() as $vers) {
-          $vers->setProfile($profile);
-          $em->persist($vers);
-        }
-       
-        $em->flush();
+                 $vers->setProfile($profile);
+               $em->persist($vers);
+                }
+                Then a second flush.
+                $em->flush();
 		
 		*/
-		//Voici ce qui marche nickel si vous rencontrez un problème avec la procédure ci-dessus.
-		foreach ($form->get('versions')->getData() as $vers) {
+		//Here's what works best if you encounter a problem with the above procedure.
+	  foreach ($form->get('versions')->getData() as $vers) {
           $vers->setProfile($profile);
           $em->persist($vers);
         }
