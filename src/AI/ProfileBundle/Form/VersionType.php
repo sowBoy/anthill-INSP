@@ -16,13 +16,8 @@ class VersionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-		->add('name',      TextType::class, array(
-    'label' => 'Libellé',
-))
-		->add('content',      TextareaType::class, array(
-    'label' => 'Descriptif',
-))
-		;
+		->add('name',      TextType::class)
+		->add('content',      TextareaType::class);
     }
     
     /**
